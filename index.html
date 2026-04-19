@@ -122,10 +122,16 @@
       z-index: 1;
     }
 
-    /* ── COVER CROP: 1:1 from 16:9 source ──────────── */
+    /* ── COVER CROP: 1:1 content in 16:9 YouTube player ─
+       YouTube wraps 1:1 content with side bars (pillarbox).
+       We stretch width to 178% so the 16:9 player fills the
+       square height, then shift left -39% to center the
+       square content. Height stays 100% — no vertical zoom. */
     .vc.cover-1x1 > iframe {
-      width: 178%; height: 178%;
-      top: -39%; left: -39%;
+      width: 178%;
+      height: 100%;
+      top: 0;
+      left: -39%;
     }
 
     /* ── COVER CROP: 9:16 from 16:9 source ─────────── */
