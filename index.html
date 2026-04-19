@@ -1,608 +1,611 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Marriott Bonvoy — Gravity Media</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
-<style>
-:root {
-  --black: #070707;
-  --deep:  #0e0e0e;
-  --card:  #131313;
-  --line:  #1e1e1e;
-  --line2: #2c2c2c;
-  --white: #f4f0eb;
-  --muted: #7a7570;
-  --gold:  #b8943a;
-  --disp:  'Bebas Neue', sans-serif;
-  --serif: 'Cormorant Garamond', serif;
-  --sans:  'DM Sans', sans-serif;
-}
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { width: 100%; }
-body {
-  background: var(--black);
-  color: var(--white);
-  font-family: var(--sans);
-  overflow-x: hidden;
-  min-height: 100vh;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marriott Bonvoy — Gravity Media</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Pirata+One&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --black: #000;
+      --white: #fff;
+      --gray: #4a4a4a;
+      --border: #181818;
+      --gap: 6px;
+      --pad: 24px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Inter', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
 
-/* ── NAV ── */
-nav {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  padding: 16px 37px 16px 37px;
-  background: rgba(7,7,7,0.93);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  backdrop-filter: blur(10px);
-}
-.nav-center {
-  font-family: var(--sans);
-  font-size: 10px;
-  letter-spacing: .22em;
-  color: var(--muted);
-  text-align: center;
-  text-transform: uppercase;
-}
-.nav-center b { color: var(--white); font-weight: 400; }
-.nav-back {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 7px;
-  font-size: 10px;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: var(--muted);
-  text-decoration: none;
-  transition: color .2s;
-}
-.nav-back:hover { color: var(--gold); }
-.nav-back svg { width: 12px; height: 12px; }
+    /* ── REVEAL SYSTEM ──────────────────────────────── */
+    .r { opacity: 0; transform: translateY(30px); transition: opacity 0.75s cubic-bezier(.22,1,.36,1), transform 0.75s cubic-bezier(.22,1,.36,1); }
+    .r.r-scale { transform: translateY(16px) scale(0.975); }
+    .r.r-left  { transform: translateX(-24px); }
+    .r.on { opacity: 1; transform: none; }
+    .d1 { transition-delay: .04s; }
+    .d2 { transition-delay: .10s; }
+    .d3 { transition-delay: .16s; }
+    .d4 { transition-delay: .22s; }
+    .d5 { transition-delay: .28s; }
 
-/* ── BRAND BAR ── */
-.brand-bar {
-  display: flex;
-  align-items: center;
-  padding: 0 37px;
-  height: 80px;
-  border-bottom: 1px solid var(--line);
-}
-.brand-bar h1 {
-  font-family: var(--disp);
-  font-size: 42px;
-  letter-spacing: .08em;
-  color: var(--white);
-  line-height: 1;
-}
-.brand-bar h1 span { color: var(--gold); }
+    /* ── NAV ────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      background: var(--black);
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px var(--pad);
+    }
+    .logo { text-decoration: none; display: flex; align-items: center; gap: 10px; }
+    .logo-mark { font-family:'Pirata One',serif; font-size:26px; color:var(--white); line-height:1; }
+    .logo-sub  { font-size:8px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:var(--gray); border-left:1px solid var(--border); padding-left:10px; }
+    .nav-links { display:flex; gap:30px; list-style:none; }
+    .nav-links a { color:var(--white); text-decoration:none; font-size:11px; letter-spacing:.12em; text-transform:uppercase; opacity:.45; transition:opacity .2s; }
+    .nav-links a:hover { opacity:1; }
 
-/* ── SECTION LABEL ── */
-.sec {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 0 37px;
-  height: 38px;
-  border-bottom: 1px solid var(--line);
-  background: var(--deep);
-}
-.sec-num { font-family: var(--disp); font-size: 11px; letter-spacing: .2em; color: var(--gold); }
-.sec-title { font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); }
-.sec-line { flex: 1; height: 1px; background: var(--line); }
-.sec-sub { font-size: 10px; letter-spacing: .16em; color: var(--line2); text-transform: uppercase; }
+    /* ── INFO BAR ───────────────────────────────────── */
+    .info-bar { margin-top:58px; display:grid; grid-template-columns:repeat(4,1fr); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+    .ic { padding:14px 20px; border-right:1px solid var(--border); display:flex; flex-direction:column; gap:5px; }
+    .ic:last-child { border-right:none; }
+    .ic-lbl { font-size:9px; text-transform:uppercase; letter-spacing:.22em; color:var(--gray); }
+    .ic-val { font-size:12.5px; font-weight:500; display:flex; justify-content:space-between; align-items:center; }
+    .ic-val .arr { color:var(--gray); font-size:11px; }
 
-/* ── CELL (video/image placeholder) ── */
-.cell {
-  position: relative;
-  overflow: hidden;
-  background: var(--card);
-  cursor: pointer;
-}
-.cell .fill {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  inset: 0;
-  transition: transform .7s cubic-bezier(.22,.61,.36,1);
-}
-/* ← Replace each .fill with your image:
-   <img src="YOUR-URL" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"> */
-.cell:hover .fill { transform: scale(1.05); }
+    /* ── HERO ───────────────────────────────────────── */
+    .hero { padding:52px var(--pad) 44px; position:relative; overflow:hidden; }
+    .hero-lw { overflow:hidden; display:block; }
+    .hero-ln {
+      display:block;
+      font-size: clamp(88px, 14vw, 190px);
+      font-weight:900; line-height:.87; letter-spacing:-.04em; text-transform:uppercase;
+      opacity:0; transform:translateY(100%);
+      transition: opacity .9s cubic-bezier(.22,1,.36,1), transform .9s cubic-bezier(.22,1,.36,1);
+    }
+    .hero-ln.l1 { transition-delay:.08s; }
+    .hero-ln.l2 { transition-delay:.2s; }
+    .hero-ln.on { opacity:1; transform:translateY(0); }
+    .hero-cta {
+      position:absolute; right:var(--pad); bottom:44px;
+      background:var(--white); color:var(--black); border-radius:100px; padding:13px 24px;
+      font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+      text-decoration:none; display:inline-flex; align-items:center; gap:8px;
+      opacity:0; transform:translateY(10px);
+      transition: opacity .6s ease .45s, transform .6s ease .45s;
+    }
+    .hero-cta.on { opacity:1; transform:none; }
+    .hero-cta:hover { opacity:.85!important; }
+    .dot { width:6px; height:6px; background:var(--black); border-radius:50%; }
 
-/* gradient placeholders */
-.p1  { background: linear-gradient(160deg,#1c140a,#0a0806); }
-.p2  { background: linear-gradient(160deg,#0b0f18,#070708); }
-.p3  { background: linear-gradient(160deg,#140a0a,#0a0606); }
-.p4  { background: linear-gradient(160deg,#0a140c,#060a07); }
-.p5  { background: linear-gradient(160deg,#180e0a,#0c0806); }
-.p6  { background: linear-gradient(160deg,#0d0d18,#070708); }
-.p7  { background: linear-gradient(160deg,#141008,#0a0805); }
-.p8  { background: linear-gradient(160deg,#0a1014,#060809); }
-.p9  { background: linear-gradient(160deg,#120c14,#09070a); }
-.p10 { background: linear-gradient(160deg,#0c1610,#070a08); }
+    /* ── FULL-WIDTH VIDEO ───────────────────────────── */
+    .fw-video {
+      width:100%; position:relative; overflow:hidden;
+      background: #06080f no-repeat center/cover;
+      cursor: pointer;
+    }
+    .fw-video.ar-16-9 { aspect-ratio:16/9; }
+    .fw-video.ar-16-7 { aspect-ratio:16/7; }
+    .fw-video iframe {
+      position:absolute; top:0; left:0;
+      width:100%; height:100%;
+      border:none; display:block;
+    }
 
-/* play button */
-.play {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-  opacity: 0;
-  transition: opacity .25s;
-}
-.cell:hover .play { opacity: 1; }
-.play-ring {
-  width: 52px; height: 52px;
-  border-radius: 50%;
-  background: var(--gold);
-  display: flex; align-items: center; justify-content: center;
-  transform: scale(.85);
-  transition: transform .25s;
-}
-.cell:hover .play-ring { transform: scale(1); }
-.play-ring svg { width: 18px; height: 18px; color: #000; margin-left: 3px; }
+    /* ── TICKER ─────────────────────────────────────── */
+    .ticker { border-top:1px solid var(--border); border-bottom:1px solid var(--border); overflow:hidden; padding:13px 0; white-space:nowrap; }
+    .ticker-t { display:inline-flex; animation:tick 22s linear infinite; }
+    .t-item { display:inline-flex; align-items:center; gap:20px; padding-right:48px; font-size:10px; text-transform:uppercase; letter-spacing:.18em; color:var(--gray); }
+    .t-dot { width:3px; height:3px; background:var(--gray); border-radius:50%; flex-shrink:0; }
+    @keyframes tick { to { transform:translateX(-50%); } }
 
-/* image hover */
-.img-hover {
-  position: absolute; inset: 0; z-index: 2;
-  display: flex; align-items: flex-end; padding: 14px;
-  background: linear-gradient(to top, rgba(7,7,7,.65) 0%, transparent 50%);
-  opacity: 0; transition: opacity .3s;
-}
-.cell:hover .img-hover { opacity: 1; }
-.img-hover span { font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); }
+    /* ── SECTION HEADER ─────────────────────────────── */
+    .sec-head { display:flex; align-items:center; justify-content:space-between; padding:20px var(--pad); border-top:1px solid var(--border); }
+    .sec-label { font-size:9px; text-transform:uppercase; letter-spacing:.24em; color:var(--gray); }
+    .pills { display:flex; gap:6px; }
+    .pill { font-size:9px; text-transform:uppercase; letter-spacing:.18em; color:var(--gray); border:1px solid var(--border); border-radius:100px; padding:5px 12px; }
 
-/* caption */
-.cap {
-  padding: 12px 16px 14px;
-  border-top: 1px solid var(--line);
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  background: var(--card);
-}
-.cap-title { font-family: var(--disp); font-size: 17px; letter-spacing: .05em; }
-.cap-sub { font-size: 10px; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); }
+    /* ── VIDEO CARD ─────────────────────────────────── */
+    .vc {
+      background: #070707 no-repeat center/cover;
+      border-radius:5px; overflow:hidden;
+      position:relative; cursor:pointer;
+    }
+    .vc > iframe {
+      position:absolute; top:0; left:0;
+      width:100%; height:100%;
+      border:none; display:block;
+      z-index: 1;
+    }
 
-/* ── GRID LAYOUTS ── */
-/* Full width */
-.g-full { width: 100%; display: flex; flex-direction: column; border-top: 1px solid var(--line); }
-.g-full .cell .fill { position: relative; aspect-ratio: 21/9; }
+    /* ── COVER CROP: 1:1 from 16:9 source ──────────── */
+    .vc.cover-1x1 > iframe {
+      width: 178%; height: 178%;
+      top: -39%; left: -39%;
+    }
 
-/* 2 col equal */
-.g-duo { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line); }
-.g-duo .cell { border-right: 1px solid var(--line); display: flex; flex-direction: column; }
-.g-duo .cell:last-child { border-right: none; }
-.g-duo .cell .fill { aspect-ratio: 16/9; position: relative; }
+    /* ── COVER CROP: 9:16 from 16:9 source ─────────── */
+    .vc.cover-916 > iframe {
+      width: 316%; height: 100%;
+      top: 0; left: -108%;
+    }
 
-/* 3 col */
-.g-trio { display: grid; grid-template-columns: repeat(3,1fr); border-top: 1px solid var(--line); }
-.g-trio .cell { border-right: 1px solid var(--line); display: flex; flex-direction: column; }
-.g-trio .cell:last-child { border-right: none; }
-.g-trio .cell .fill { aspect-ratio: 16/9; position: relative; }
+    /* ── THUMBNAIL OVERLAY ──────────────────────────── */
+    .vc-thumb {
+      position: absolute; inset: 0;
+      background: inherit;
+      background-size: cover;
+      background-position: center;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 2;
+      transition: opacity .35s ease;
+    }
+    .vc-thumb::after {
+      content:''; position:absolute; inset:0;
+      background: rgba(0,0,0,0.28);
+    }
+    .play-btn {
+      width:52px; height:52px;
+      border:1.5px solid rgba(255,255,255,.35);
+      border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      position:relative; z-index:3;
+      transition: border-color .25s, transform .25s;
+    }
+    .vc:hover .play-btn {
+      border-color: rgba(255,255,255,.9);
+      transform: scale(1.1);
+    }
+    .fw-thumb {
+      position: absolute; inset: 0;
+      background: inherit;
+      background-size: cover; background-position: center;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 2;
+      transition: opacity .35s ease;
+    }
+    .fw-thumb::after {
+      content:''; position:absolute; inset:0;
+      background: rgba(0,0,0,0.2);
+    }
+    .fw-play {
+      width:64px; height:64px;
+      border:1.5px solid rgba(255,255,255,.4);
+      border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      position:relative; z-index:3;
+      transition: border-color .25s, transform .25s;
+    }
+    .fw-video:hover .fw-play {
+      border-color: rgba(255,255,255,.95);
+      transform: scale(1.08);
+    }
+    .vc-tag {
+      position:absolute; bottom:11px; left:13px;
+      font-size:9px; text-transform:uppercase; letter-spacing:.16em; color:rgba(255,255,255,.35);
+      pointer-events:none; z-index:4;
+    }
 
-/* featured 60/40 */
-.g-feat { display: grid; grid-template-columns: 3fr 2fr; border-top: 1px solid var(--line); }
-.g-feat .cell { border-right: 1px solid var(--line); display: flex; flex-direction: column; }
-.g-feat .cell:last-child { border-right: none; }
-.g-feat .cell .fill { aspect-ratio: 16/9; position: relative; }
+    /* ── GRID LAYOUTS ───────────────────────────────── */
 
-/* newspaper */
-.g-news {
-  display: grid;
-  grid-template-columns: 2fr 3fr 2fr;
-  grid-template-rows: auto auto;
-  border-top: 1px solid var(--line);
-}
-.g-news .cell { border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); display: flex; flex-direction: column; }
-.g-news .cell:nth-child(3) { border-right: none; }
-.g-news .cell .fill { aspect-ratio: 1/1; position: relative; }
-.g-news .tall { grid-row: span 2; min-height: 400px; }
-.g-news .tall .fill { position: absolute !important; inset: 0; aspect-ratio: unset !important; }
-.g-news .wide-mid .fill { aspect-ratio: 16/9 !important; }
-.g-news .col3 { grid-column: 3; grid-row: span 2; min-height: 400px; position: relative; border-right: none; }
-.g-news .col3 .fill { position: absolute !important; inset: 0; aspect-ratio: unset !important; }
-.g-news .col3 .cap { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top,rgba(7,7,7,.9),transparent); border: none; padding: 32px 16px 14px; }
+    /* MOSAIC A: 16:9 hero-left + 1:1 stack + 9:16 right */
+    .grid-a {
+      display:grid;
+      grid-template-columns:2.3fr 1fr 1fr;
+      grid-template-rows:auto auto;
+      gap:var(--gap);
+      padding:0 var(--gap) var(--gap);
+    }
+    .grid-a .v1 { aspect-ratio:16/9; grid-column:1; grid-row:1/3; }
+    .grid-a .v2 { aspect-ratio:1/1;  grid-column:2; grid-row:1; }
+    .grid-a .v3 { aspect-ratio:9/16; grid-column:3; grid-row:1/3; }
+    .grid-a .v4 { aspect-ratio:1/1;  grid-column:2; grid-row:2; }
 
-/* reels 9:16 */
-.g-reels { display: grid; grid-template-columns: repeat(5,1fr); border-top: 1px solid var(--line); }
-.g-reels .cell { border-right: 1px solid var(--line); display: flex; flex-direction: column; }
-.g-reels .cell:last-child { border-right: none; }
-.g-reels .cell .fill { aspect-ratio: 9/16; position: relative; }
+    /* MOSAIC B: 3-column equal 16:9 */
+    .grid-b {
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:var(--gap);
+      padding:0 var(--gap) var(--gap);
+    }
+    .grid-b .vc { aspect-ratio:16/9; }
 
-/* masonry */
-.g-maso {
-  display: grid;
-  grid-template-columns: repeat(4,1fr);
-  grid-auto-rows: 180px;
-  border-top: 1px solid var(--line);
-  gap: 1px;
-  background: var(--line);
-}
-.g-maso .cell { background: var(--card); }
-.g-maso .cell .fill { position: absolute; inset: 0; }
-.g-maso .wide { grid-column: span 2; }
-.g-maso .tall { grid-row: span 2; }
-.g-maso .big  { grid-column: span 2; grid-row: span 2; }
+    /* MOSAIC C: Big 9:16 left + stacked 16:9 right */
+    .grid-c {
+      display:grid;
+      grid-template-columns:1fr 2.5fr;
+      grid-template-rows:auto auto;
+      gap:var(--gap);
+      padding:0 var(--gap) var(--gap);
+    }
+    .grid-c .v1 { aspect-ratio:9/16; grid-column:1; grid-row:1/3; }
+    .grid-c .v2 { aspect-ratio:16/9; grid-column:2; grid-row:1; }
+    .grid-c .v3 { aspect-ratio:16/9; grid-column:2; grid-row:2; }
 
-/* panorama banner */
-.panorama { position: relative; border-top: 1px solid var(--line); overflow: hidden; }
-.panorama .bg { aspect-ratio: 28/9; position: relative; }
-.pan-overlay {
-  position: absolute; inset: 0;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 56px;
-  background: linear-gradient(to right, rgba(7,7,7,.7) 0%, transparent 45%, rgba(7,7,7,.4) 100%);
-  pointer-events: none;
-}
-.pan-left { }
-.pan-eyebrow { font-size: 9px; letter-spacing: .28em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
-.pan-title { font-family: var(--disp); font-size: 42px; letter-spacing: .08em; color: var(--white); line-height: 1; }
-.pan-title span { color: var(--gold); margin-left: 10px; }
-.pan-right p { font-family: var(--serif); font-size: 15px; font-style: italic; color: var(--white); opacity: .5; max-width: 220px; line-height: 1.7; text-align: right; }
+    /* MOSAIC D: wide hero + 2x square */
+    .grid-d {
+      display:grid;
+      grid-template-columns:3fr 1fr;
+      grid-template-rows:auto auto;
+      gap:var(--gap);
+      padding:0 var(--gap) var(--gap);
+    }
+    .grid-d .v1 { aspect-ratio:16/9; grid-column:1; grid-row:1/3; }
+    .grid-d .v2 { aspect-ratio:1/1;  grid-column:2; grid-row:1; }
+    .grid-d .v3 { aspect-ratio:1/1;  grid-column:2; grid-row:2; }
 
-/* ticker */
-.ticker { overflow: hidden; border-top: 1px solid var(--line); height: 34px; display: flex; align-items: center; background: var(--deep); }
-.ticker-track { display: flex; animation: tick 22s linear infinite; width: max-content; }
-.t-item { padding: 0 32px; font-size: 9px; letter-spacing: .26em; text-transform: uppercase; color: var(--line2); white-space: nowrap; display: flex; align-items: center; gap: 16px; }
-.t-item::after { content:'◆'; color: var(--gold); opacity: .4; font-size: 7px; }
-@keyframes tick { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+    /* MOSAIC E: 2 vertical 9:16 + wide 16:9 */
+    .grid-e {
+      display:grid;
+      grid-template-columns:1fr 1fr 2.5fr;
+      gap:var(--gap);
+      padding:0 var(--gap) var(--gap);
+      align-items:start;
+    }
+    .grid-e .v1 { aspect-ratio:9/16; }
+    .grid-e .v2 { aspect-ratio:9/16; }
+    .grid-e .v3 { aspect-ratio:16/9; }
 
-/* next brand */
-.next-brand {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 40px; height: 80px;
-  border-top: 1px solid var(--line);
-  text-decoration: none;
-  transition: background .25s;
-}
-.next-brand:hover { background: var(--deep); }
-.next-label { font-size: 9px; letter-spacing: .25em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
-.next-name { font-family: var(--disp); font-size: 32px; letter-spacing: .08em; color: var(--white); }
-.next-arrow {
-  width: 40px; height: 40px;
-  border: 1px solid var(--line2);
-  display: flex; align-items: center; justify-content: center;
-  transition: background .2s, border-color .2s;
-}
-.next-brand:hover .next-arrow { background: var(--gold); border-color: var(--gold); }
-.next-brand:hover .next-arrow svg { color: #000; }
-.next-arrow svg { width: 16px; height: 16px; color: var(--white); }
+    /* MOSAIC F: 9:16 | 1:1 stack | 9:16 (symmetric) */
+    .grid-f {
+      display:grid;
+      grid-template-columns:1fr 1.3fr 1fr;
+      grid-template-rows:auto auto;
+      gap:var(--gap);
+      padding:0 var(--gap) var(--gap);
+    }
+    .grid-f .v1 { aspect-ratio:9/16; grid-column:1; grid-row:1/3; }
+    .grid-f .v2 { aspect-ratio:1/1;  grid-column:2; grid-row:1; }
+    .grid-f .v3 { aspect-ratio:1/1;  grid-column:2; grid-row:2; }
+    .grid-f .v4 { aspect-ratio:9/16; grid-column:3; grid-row:1/3; }
 
-/* footer */
-footer {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 40px; height: 52px;
-  border-top: 1px solid var(--line);
-  background: var(--deep);
-}
-footer p { font-size: 10px; color: var(--muted); letter-spacing: .1em; }
+    /* ── FOOTER CTA ─────────────────────────────────── */
+    .footer-cta {
+      padding:96px var(--pad);
+      display:flex; flex-direction:column; align-items:center; text-align:center; gap:26px;
+      border-top:1px solid var(--border);
+    }
+    .fc-eye  { font-size:9px; text-transform:uppercase; letter-spacing:.24em; color:var(--gray); }
+    .fc-title { font-size:clamp(40px,6vw,80px); font-weight:900; letter-spacing:-.03em; line-height:.95; }
+    .fc-btn {
+      background:var(--white); color:var(--black); border-radius:100px; padding:14px 28px;
+      font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+      text-decoration:none; display:inline-flex; align-items:center; gap:8px; margin-top:4px;
+      transition:opacity .2s;
+    }
+    .fc-btn:hover { opacity:.85; }
 
-/* reveal animation */
-.r { opacity: 0; transform: translateY(20px); transition: opacity .65s ease, transform .65s ease; }
-.r.on { opacity: 1; transform: none; }
-
-/* ── RESPONSIVE ── */
-@media(max-width:960px){
-  .g-duo, .g-feat { grid-template-columns: 1fr; }
-  .g-duo .cell, .g-feat .cell { border-right: none; border-bottom: 1px solid var(--line); }
-  .g-trio { grid-template-columns: 1fr 1fr; }
-  .g-reels { grid-template-columns: repeat(3,1fr); }
-  .g-reels .cell:nth-child(n+4) { display: none; }
-  .g-news { grid-template-columns: 1fr 1fr; }
-  .g-news .tall, .g-news .col3 { grid-row: span 1; min-height: 0; }
-  .g-news .tall .fill, .g-news .col3 .fill { position: relative !important; aspect-ratio: 1/1 !important; }
-  .g-news .col3 .cap { position: relative; background: var(--card); padding: 12px 16px 14px; }
-  .g-maso { grid-template-columns: repeat(3,1fr); grid-auto-rows: 150px; }
-  .panorama .bg { aspect-ratio: 16/9; }
-  .pan-right { display: none; }
-}
-@media(max-width:600px){
-  nav { grid-template-columns: 1fr 1fr; padding: 12px 20px; }
-  .nav-center { display: none; }
-  .brand-bar { padding: 0 20px; height: 64px; }
-  .brand-bar h1 { font-size: 28px; }
-  .sec { padding: 0 20px; }
-  .sec-sub { display: none; }
-  .g-trio { grid-template-columns: 1fr; }
-  .g-trio .cell { border-right: none; border-bottom: 1px solid var(--line); }
-  .g-reels { grid-template-columns: 1fr 1fr; }
-  .g-reels .cell:nth-child(n+3) { display: none; }
-  .g-news { grid-template-columns: 1fr; }
-  .g-news .cell { border-right: none; grid-column: span 1 !important; grid-row: span 1 !important; }
-  .g-news .tall .fill, .g-news .col3 .fill { position: relative !important; aspect-ratio: 16/9 !important; }
-  .g-maso { grid-template-columns: repeat(2,1fr); grid-auto-rows: 130px; }
-  .g-maso .wide,.g-maso .tall,.g-maso .big { grid-column: span 1; grid-row: span 1; }
-  .g-full .cell .fill { aspect-ratio: 16/9; }
-  .pan-overlay { padding: 0 20px; }
-  .next-brand { padding: 0 20px; }
-  footer { padding: 0 20px; flex-direction: column; justify-content: center; gap: 4px; height: auto; padding-top: 16px; padding-bottom: 16px; }
-}
-@media(max-width:400px){
-  .brand-bar h1 { font-size: 22px; }
-  .g-maso { grid-auto-rows: 110px; }
-}
-</style>
+    /* ── FOOTER ─────────────────────────────────────── */
+    .footer { border-top:1px solid var(--border); padding:18px var(--pad); display:flex; justify-content:space-between; align-items:center; }
+    .footer p { font-size:10px; color:#282828; }
+    .f-links { display:flex; gap:22px; }
+    .f-links a { color:#282828; text-decoration:none; font-size:10px; text-transform:uppercase; letter-spacing:.12em; transition:color .2s; }
+    .f-links a:hover { color:var(--white); }
+  </style>
 </head>
 <body>
 
-<!-- NAV -->
+<!-- ── NAV ─────────────────────────────────────────── -->
 <nav>
-  <a href="https://www.thegravitymedia.com" style="display:flex;align-items:center;">
-    <svg style="width:169px;height:auto;display:block;" viewBox="0 0 3184.8 1163" xmlns="http://www.w3.org/2000/svg"><defs><style>path{fill:none;stroke:#f4f0eb;stroke-width:8;stroke-miterlimit:10;fill-rule:evenodd;}</style></defs><path d="M369.76,169.11c6.83-.76,13.66-1.52,20.49-2.28,5.77-.3,11.53-.61,17.3-.91,9.41.15,18.82.3,28.23.46,5.92.3,11.84.61,17.76.91,16.06,2.61,32.27,3.36,47.12,6.6,20.52,4.48,39.72,8,58.5,13.89,49.56,15.53,95.84,34.99,137.04,59.41,2.88,1.97,5.77,3.95,8.65,5.92-2.73,4.7-5.46,9.41-8.19,14.11-29.65-12.77-58.62-24.83-93.1-33.23-12.06-2.94-24.77-3.44-38.02-5.46-5.54-.15-11.08-.3-16.62-.46-10.13-1.47-29.03.37-38.47,2.05-14.55,2.58-28.84,4.05-42.11,7.97-23.78,7.03-47.43,14.04-67.15,25.5-6.98,3.87-13.96,7.74-20.94,11.61-3.49,2.2-6.98,4.4-10.47,6.6v284.09c.61.61,1.21,1.21,1.82,1.82v-.46c1.75-2.96,3.49-5.92,5.24-8.88,3.13-5.13,6.7-10.33,9.11-16.16,5.11-12.4,6.97-26.35,10.93-39.61,13.57-45.44,21.19-101.13,46.21-135.22,12.77-17.4,31.34-28.55,55.54-34.6,8.62-2.16,17.48-1.13,27.54-2.73,5.52-.88,13.54-.66,18.89.23,12.26,2.03,23.6,1.15,34.83,3.41,54.94,11.06,101.13,27.88,146.82,47.58,25.1,10.82,50.78,21.17,73.53,34.83,16.77-13.35,33.54-26.71,50.31-40.06,5.13-3.88,9.56-8.73,15.93-11.38,11.6-4.83,30.82-1.01,41.88,2.28,27.9,8.3,48.23,21.44,59.19,46.44,4.2,9.58,6.44,20.96,10.7,30.28,12.69-6.13,22.82-15.23,33.69-23.22,15.33-11.38,30.66-22.76,45.98-34.15,9.85-7.42,21.42-20.05,34.6-23.22,10.68-2.57,19.33,3.39,26.41,6.37,8.42,3.41,16.85,6.83,25.27,10.24,9,3.89,17.25,8.72,28.23,10.7,13.98,2.52,27.92-7.02,35.97-12.06,2.43-1.52,4.86-3.04,7.28-4.55,1.1,1.9,9.43,12.04,9.11,13.43-1.29,1.82-2.58,3.64-3.87,5.46-4.82,7.64-9.9,14.86-15.02,22.08-19.27,27.12-41.93,55.05-72.62,70.57-7.08,3.58-25.93,10.33-37.56,8.42-4.86-.61-9.71-1.21-14.57-1.82-10.56-2.66-19.95-7.01-27.77-12.52-10.25-7.22-18.47-18.6-30.28-23.9-16.69-7.49-36.95,2.31-42.34,14.8-3.15,7.29-2.28,17.66-2.28,27.77.08,16.77.15,33.54.23,50.31,0,54.2-.68,108.15-.68,161.62,0,33.42,1.29,68.73,20.03,83.54,3.33,2.63,7.22,4.84,11.61,6.37,19.38,6.76,37.97-4.8,50.31-12.06,2.84-1.67,5.87-4.43,9.33-5.24,2.64,4.13,7.68,8.34,9.11,13.2-39.38,27.31-78.77,54.64-118.14,81.95-3.72-.08-7.44-.15-11.15-.23-10.73-.49-20.83-2.02-29.82-4.33-42.87-10.99-57.68-32.66-66.7-77.4-3.4-16.87-2.96-37.34-2.96-56.68v-23.67c-.08-43.93-.15-87.87-.23-131.8-.08-13.88-.15-27.77-.23-41.66v-13.89c-1.11-6.79-.84-13.53-2.5-19.58-6.7-24.32-24.59-39.12-51.9-42.8-4.28,5.82-9.44,10.91-13.43,17.3-7.74,14.04-15.48,28.08-23.22,42.11-13.06,20.86-31.94,35.13-57.82,43.25-3.34,1.29-6.68,2.58-10.02,3.87,1.35,4.72,6.93,8.5,9.79,12.06,4.55,5.84,9.11,11.69,13.66,17.53,10.04,15,17.92,31.62,22.99,51.67.99,6.45,1.97,12.9,2.96,19.35,2.46,14.54-.72,34.19-3.87,45.53-7.62,27.42-18.96,48.68-33.92,68.52-4.18,5.55-9.35,10.36-13.66,15.71-16.52,20.53-43.89,38.13-69.66,49.4-19.85,8.68-41.25,15.21-65.1,20.49-42.01,9.3-96.28,3.53-133.17-5.92-56.4-14.45-106.53-32.33-150.01-59.41-23.43-14.59-43.93-31.43-64.88-48.26-10.75-8.64-21.4-19.73-30.05-30.5-9.27-11.56-19.32-22.52-28-34.83-26.46-37.52-44.25-80.54-57.14-132.03-7.19-28.72-11.59-74.42-5.24-108.13,3.13-16.59,6.04-32.13,10.7-46.89,9.42-29.8,23.52-56.14,38.7-80.36,35.43-56.51,82.79-102.87,146.6-130.89,16.48-7.24,33.8-14.63,53.04-19.12l35.74-7.06ZM369.76,160.96"/><path d="M2503.45,361.91h83.77v63.51c-3.95-3.87-7.89-7.74-11.84-11.61-9.63-7.78-17.87-16.75-30.05-22.08-8.18-3.58-17.79-5.22-27.77-7.06-4.7-.53-9.41-1.06-14.11-1.59v251.76c.08,18.74.15,37.49.23,56.23v10.93c0,6.87.31,13.03,1.59,18.89,3.41,15.54,9.19,27.16,17.53,37.56,12.55,15.65,41.48,26.39,70.57,19.58,4.17-1.29,8.35-2.58,12.52-3.87,2.88-1.37,5.77-2.73,8.65-4.1,3.19,4.4,6.37,8.8,9.56,13.2l-.23.46c-45.22,31.33-90.45,62.68-135.67,94.01h-7.97c-13.17,0-23.48-1.54-33.46-4.55-34.76-10.5-57.15-28.91-65.56-65.56-33.61,23.37-67.23,46.74-100.84,70.11-3.64-.08-7.28-.15-10.93-.23-3.11-.15-6.22-.3-9.33-.46-8.06-1.39-16-2.4-22.99-4.55-29.34-9.06-49.77-25.82-58.96-54.86-3.9-12.32-4.84-26.61-7.28-40.52-2.07-11.82-1.37-25.23-1.37-38.47v-14.34c-.08-46.51-.15-93.03-.23-139.54,0-39.42,2.53-69.56-14.34-92.65-8.1-11.09-19.06-18.88-34.37-22.76-4.49-1.14-8.71-.77-13.89-1.59-4.92-.78-20.52.18-23.22,2.28,4.61,7.89,5.59,19.25,7.74,29.14,10.54,48.5-6,94.01-20.49,126.79-5.41,12.25-12.03,23.52-18.67,34.6-23.57,39.35-50.52,75.35-85.59,103.12-12.85,10.17-25.67,20.52-39.15,30.05-13.28,8.95-26.56,17.91-39.84,26.86-27.47,19.04-54.94,38.09-82.4,57.14l-.46-.23c-1.59-1.97-3.19-3.95-4.78-5.92-5.4-6.93-11.64-13.05-17.07-19.8-16.09-19.98-39.98-39.01-68.06-46.89-9.97-2.8-24.81-4.95-37.33-2.73-15.48,2.74-28.82,5.82-41.66,10.93-6.75,2.96-13.51,5.92-20.26,8.88-2.6-4.07-7.86-8.34-9.11-13.2,27.49-18.59,65.16-39.98,75.8-74.66,2.45-7.99,2.05-17.39,2.05-27.54-.08-4.48-.15-8.95-.23-13.43-.23-21.09-.46-42.19-.68-63.28.23-23.14-.08-51.29.15-74.43,0-14.52-.66-19.14-.66-31.68,0-23.21-7.65-38.06-27.72-46.86-11.25-4.93-32.52-3.32-50.18-.29-5.7.98-11.12,1.75-15.93,3.64-2.66,1.29-5.31,2.58-7.97,3.87-3.03-4.25-6.07-8.5-9.11-12.75.08-.3-.85-2.61-.77-2.91,10.09-7.13,21.18-12.27,31.28-19.4,22.91-15.63,45.83-31.26,68.75-46.89,7.97-5.46,15.94-10.93,23.9-16.39,5.01-3.53,9.71-7.41,15.93-9.79,14.18-5.42,38.43,1.42,49.85,5.46,49.55,17.53,52.1,44.04,52.01,110.47,14.49-9.94,28.99-19.88,43.48-29.82,47.72-33,95.46-66.02,143.18-99.02,20.09,12.88,41.27,34.58,55.32,53.72,5.93,8.08,13.18,16.8,17.07,26.63l.68-.68c27.54-19.04,55.09-38.09,82.63-57.14,15.29-10.78,32.9-28.28,62.14-21.85,7.74,1.7,15.33,3.44,22.31,6.15,9.26,3.6,17.17,7.92,24.36,13.43,10.45,8.01,18.24,18.64,23.45,31.87,10.78,27.39,10.7,65.68,10.7,103.57.08,44.84.15,89.69.23,134.53,0,21.12-2.5,46.24,1.59,64.88,7.62,34.66,31.5,60.76,76.49,54.63-.3-5.84-.61-11.69-.91-17.53v-361.26c-.08-18.51-.15-37.03-.23-55.54.15-22.91.3-45.83.46-68.75.53-5.69,1.06-11.38,1.59-17.07,3.57-19.15,6.4-37.39,12.75-53.72,26.64-68.47,81.92-108.62,150.01-135.67,27.81-11.05,57.93-17.2,91.51-23.45,14.76-2.75,30.27-1.41,45.75-3.87,12.11-1.92,24.89-.28,37.79-1.82,3.8-.45,12.2-1.26,15.48.23,2.96,4.25,5.92,8.5,8.88,12.75-14.09-.14-29.04-.09-42.11,2.05-11.12,1.82-22.3,1.11-32.78,2.96-19.26,3.39-37.64,3.86-53.49,10.02-52.8,20.5-88.72,57.71-103.57,116.09-5.16,20.29-4.33,46.83-4.33,71.93.08,37.25.15,74.52.23,111.77Z"/><path d="M2128.31,123.12c11.38,5.01,22.76,10.02,34.15,15.02,22.49,9.54,45.28,18.46,65.56,30.28,11.49,6.7,25.83,12.27,32.55,23.67,4.6,7.8,1.77,16.48,3.41,27.54,2.93,19.69-2.73,44.86,2.5,62.14,3.52,11.63,14.04,21.81,24.58,26.41,3.34.99,6.68,1.97,10.02,2.96l-.46.23c-5.31,3.79-10.62,7.59-15.93,11.38-5.77-.99-11.53-1.97-17.3-2.96-15.26-3.28-29.65-5.99-43.25-10.24-32.87-10.29-77.17-28.69-86.96-61.23-5.88-19.56,2.23-41.02,7.97-55.09,3.28-8.04,6.59-20.97,2.73-30.96-4.44-11.48-13.83-19.39-23.67-25.5-2.88-1.52-5.77-3.04-8.65-4.55l.46-.68c4.1-2.81,8.2-5.62,12.29-8.42Z"/><path d="M333.56,308.19c-3.19,2.73-6.37,5.46-9.56,8.19-7.97,6.4-19.11,16.9-25.5,24.81-7.36,8.57-14.72,17.15-22.08,25.72-15.49,20.46-29.72,41.41-41.88,65.33-3.49,7.13-6.98,14.27-10.47,21.4,6.45,3.34,12.9,6.68,19.35,10.02,22.02,9.68,42.13,20.31,60.55,33.46,6.75,5.46,13.51,10.93,20.26,16.39,3.26,3.11,6.53,6.22,9.79,9.33v-200.32c0-2.71.65-13.06-.46-14.34Z"/><path d="M3011.99,361.91c12.1-.06,23.8,2.93,33.46,5.92,27.54,8.52,45.43,23.14,56.23,48.26,6.3,14.66,8.38,30.98,11.38,49.4v46.21c.08,30.88.15,61.77.23,92.65-.08,33.91-.15,67.84-.23,101.75-.15,13.43-.3,26.86-.46,40.29-.23,6.07-.46,12.14-.68,18.21-1.29,11.23-2.58,22.46-3.87,33.69-5.12,25.53-10.48,49.07-19.12,70.79-42.81,107.58-132.16,172.17-236.74,217.85-31.82,13.9-64.99,26.06-100.16,37.1-8.8,2.58-17.6,5.16-26.41,7.74-2.99.91-8,3.34-11.15,2.73-1.14-5.31-2.28-10.62-3.41-15.93,54.43-14.8,107.21-33.13,151.15-58.96,22.92-13.48,45.2-25.96,61.23-46.21,17.04-21.52,27.51-46.78,36.88-76.49,5.66-17.94,10.43-36.75,15.25-56.23,1.82-11.61,3.64-23.22,5.46-34.83,3.9-21.6,2.74-47.63,2.73-72.16-15.78,10.93-31.57,21.85-47.35,32.78-17.37,11.76-34.75,23.52-52.13,35.28-17,11.99-34,23.98-50.99,35.97l-.68-.46c-1.47-3.65-4.77-6.42-7.06-9.33-5.3-6.75-11.02-12.78-16.62-19.12-19.12-21.65-43.33-38.09-74.66-47.58-8.26-2.5-27.08-6.78-38.02-4.78-29.51,5.39-56.91,20.51-78.76,34.37l-.46-.23c-3.03-4.25-6.07-8.5-9.11-12.75l.23-.68c25.8-17.98,51.6-35.97,77.4-53.95,10.57-7.45,23.35-13.24,28.45-26.18,6.17-15.65,2.73-45.17,2.73-65.79v-106.31c0-36.7.15-65.2-20.26-81.49-15.3-12.22-41.93-18.71-70.11-13.89-8.42,1.14-16.85,2.28-25.27,3.41-3.11-4.4-6.22-8.8-9.33-13.2,2.66-1.82,5.31-3.64,7.97-5.46,8.57-6.07,17.15-12.14,25.72-18.21,22.53-15.48,45.07-30.96,67.61-46.44,7.66-5.24,15.33-10.47,22.99-15.71,4.45-3.13,8.8-6.88,14.11-9.11,9.68-4.05,24.19-2.57,34.6-.23,24.32,5.47,44.56,13.05,57.59,29.59,9.96,12.65,15.46,27.37,19.35,46.44.68,6.6,1.37,13.2,2.05,19.8.08,3.41.15,6.83.23,10.24l.68-.68c4.63-3.26,9.26-6.53,13.89-9.79,10.86-7.66,21.69-15.16,32.32-22.76,23.61-16.88,48.77-32.08,73.07-48.26,6.75-4.78,13.51-9.56,20.26-14.34,4.85-3.47,9.17-7.73,15.02-10.24,3.81-1.64,8.6-1.11,12.75-2.73Z"/><path d="M1327.72,362.6c15.4,7.74,30.81,15.48,46.21,23.22,28.78,14.7,57.39,27.17,91.28,37.33,16.5,4.95,42.47,12.31,64.19,8.42,10.17-1.82,19.69-3.24,28.23-6.6,5.46-2.58,10.93-5.16,16.39-7.74,3.03,4.32,6.07,8.65,9.11,12.98l-.23.46c-19.8,13.66-39.61,27.32-59.41,40.97-7.13,5.02-18.35,9.73-21.85,18.21-2.48,6-2.65,17.81-1.37,25.72v173.23c0,29.86.53,58.05,17.07,71.25,13.59,10.84,45.6,15.9,68.52,8.88,8.63-2.65,15.67-8.59,24.13-10.47,3.03,4.4,6.07,8.8,9.11,13.2-50.99,35.36-101.99,70.72-152.97,106.08-5.94,1.92-20.61-2.77-24.36-4.1-21.21-7.53-37.92-20.54-49.85-37.33-9.49-13.36-14.54-28.23-17.98-48.03-.53-12.97-1.06-25.95-1.59-38.93l-.46.46c-7.93,3.1-15.3,10.24-22.08,15.02-13.88,9.64-27.77,19.27-41.66,28.91-40.36,27.92-80.74,55.85-121.1,83.77-.68-.61-1.37-1.21-2.05-1.82-3.34-3.64-6.68-7.28-10.02-10.93-7.44-9.18-14.87-18.36-22.31-27.54-18.23-24.81-32.95-51.98-45.07-83.09-5.13-13.17-7.97-27.55-11.15-42.57-8.17-38.56-.31-84.38,10.93-113.13,13.87-35.49,31.87-63.57,53.27-91.05,6.67-8.57,15.11-15.75,21.85-24.13,8.94-11.1,20.74-21.58,31.87-30.5,13.03-10.45,25.07-22.41,38.47-32.55,24.96-19.2,49.93-38.4,74.89-57.59Z"/><path d="M638.37,385.36c-3.26.38-6.53.76-9.79,1.14-7.4,1.58-14.22,3.63-20.49,6.37-27.15,11.91-42.73,38.5-54.18,66.24-4.02,9.73-7.84,20.46-10.93,30.96-1.2,4.1-.83,9.47,2.05,11.38,3.54,2.35,9.37-.1,12.29-1.37,9.89-4.28,20.42-8.85,29.14-14.57,8.83-5.79,15.24-13.59,23.22-20.03,11.4-9.22,21.3-20.62,31.64-30.96,13.73-13.88,27.47-27.77,41.2-41.66-4.1-1.37-8.2-2.73-12.29-4.1-9.39-2.81-19.73-3.36-31.87-3.41Z"/><path d="M1903.86,452.51c-10.2,5.13-17.97,11.49-26.86,17.76-12.06,8.42-24.13,16.85-36.19,25.27-9.57,6.79-21.37,12.63-25.95,24.36-3.57,9.13-2.05,24.69-2.05,36.88v124.74c0,8.02-1.08,18.35,1.37,24.36,3.92,9.63,17.06,15.18,25.5,20.49,20.71,13.04,40.58,28.24,62.37,40.06,7.91-5.98,14.82-14.51,20.94-22.31,20.98-26.75,35.16-47.97,44.84-86.73,11.04-44.18-5.14-106.59-17.98-139.09-8.1-20.5-16.95-37.53-29.36-53.27-3.73-4.72-8.47-12.5-16.62-12.52Z"/><path d="M1245.31,466.17c-10.14,4.98-13.43,15.31-17.98,25.72-7.4,16.94-12.62,34.73-16.62,55.77-1.59,8.35-.78,16.78-1.59,26.18.08,6.15.15,12.29.23,18.44,3.11,18.91,3.53,36.43,8.42,52.81,11.5,38.49,26.24,67.74,45.3,97.88,6.15,9.72,13.02,18.56,19.8,27.54,2.88,3.64,5.77,7.28,8.65,10.93,5.94-1.98,11.53-6.8,16.62-10.02,14.31-9.03,27.6-19.02,41.2-28.68,8.03-5.71,17.51-10.16,21.4-20.03,3.6-9.14,1.82-25.51,1.82-37.56v-134.08c0-7.43,1.71-18.26-.68-23.9-3.11-7.33-22.35-13.81-30.28-17.3-21.47-10.17-42.95-20.34-64.42-30.5-7.6-3.86-22.05-13.2-31.87-13.2Z"/><path d="M2910.24,466.4c-5.01.91-10.02,1.82-15.02,2.73-15.93,4.79-40.59,15.32-48.26,28-5.83,9.64-3.2,37.36-3.19,52.58.08,33.99.15,67.99.23,101.98,0,18.15-1.95,39.05,3.41,52.13,8.4,20.46,24.28,32.66,40.52,45.3,11.15,8.95,22.31,17.91,33.46,26.86,4.55,3.19,9.11,6.37,13.66,9.56,12.59-6.22,24.07-15.79,34.83-24.13,3.4-2.64,9.66-6.16,11.38-10.24,3.41-8.09,1.13-18.63,2.73-28.91.08-24.35.15-48.72.23-73.07v-81.95c0-13.9,1.66-30.74-1.14-42.8-8.02-34.59-29.95-58.13-72.84-58.05Z"/><path d="M217.47,482.56c-.68,6.82-1.74,14.78-2.96,22.08-.53,7.36-1.06,14.72-1.59,22.08-.08,9.1-.15,18.21-.23,27.32.08,4.7.15,9.41.23,14.11,1.56,9.79,1.06,20.15,2.73,29.36,2.69,14.79,3.82,28.55,7.28,42.11,10.53,41.25,25.23,77.63,44.84,109.72,12.73,20.83,26.09,38.06,45.75,51.9,5.66,3.98,13.07,9.95,20.49,11.61-.08-56.83-.15-113.67-.23-170.5-25.95-10.85-51.9-21.7-77.85-32.55,1.32-8.3,2.82-17.05,4.33-26.18.97-5.86.68-14.32-.23-19.8-.94-5.71-.76-10.59-2.05-15.71-4.71-18.77-12.32-33-22.31-46.21-4.92-6.51-11.09-15.2-18.21-19.35Z"/><path d="M369.76,823.1c10.21.55,22.41,2.75,33.46.91,17.89-2.97,34.26-4.38,49.17-10.02,60.92-23.02,102.97-65.59,128.16-124.06,4.67-10.85,7.89-22.55,10.7-35.28,2.26-10.28,3.53-24.99,1.59-36.42-1.13-6.64-1-12.45-2.5-18.44-6.5-25.85-17.66-43.53-36.19-57.14-6.48-4.76-14.12-11-22.31-13.66-4.98,18.27-14.15,35.33-21.4,52.13-14.53,33.66-28.97,67-65.56,78.53-6.29,1.98-12.42,1.94-20.03,3.19-8.68,1.42-20.23.54-28.23-.91-9.56-1.73-18.44-3.68-26.86-5.92v167.08Z"/></svg>
+  <a href="https://www.thegravitymedia.com" class="logo">
+    <span class="logo-mark">Gravity</span>
+    <span class="logo-sub">Media</span>
   </a>
-  <div class="nav-center">PAST WORK &nbsp;/&nbsp; <b>MARRIOTT BONVOY</b></div>
-  <a href="https://www.thegravitymedia.com" class="nav-back">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-    All Work
-  </a>
+  <ul class="nav-links">
+    <li><a href="https://www.thegravitymedia.com">Work</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
 </nav>
 
-<!-- BRAND BAR -->
-<div class="brand-bar r">
-  <h1>MARRIOTT <span>BONVOY</span></h1>
+<!-- ── INFO BAR ─────────────────────────────────────── -->
+<div class="info-bar">
+  <div class="ic r d1"><span class="ic-lbl">Client</span><span class="ic-val">Marriott Bonvoy <span class="arr">↗</span></span></div>
+  <div class="ic r d2"><span class="ic-lbl">Project</span><span class="ic-val">Brand Campaign <span class="arr">↗</span></span></div>
+  <div class="ic r d3"><span class="ic-lbl">Year</span><span class="ic-val">2024 <span class="arr">↗</span></span></div>
+  <div class="ic r d4"><span class="ic-lbl">Formats</span><span class="ic-val">16:9 · 9:16 · 1:1 <span class="arr">↗</span></span></div>
 </div>
 
-<!-- ═══════ 01 — CAMPAIGN FILM ═══════ -->
-<div class="sec r">
-  <span class="sec-num">01</span>
-  <span class="sec-title">Campaign Film</span>
-  <div class="sec-line"></div>
-  <span class="sec-sub">Digital · Social</span>
-</div>
-
-<!-- Full width featured video -->
-<!-- ← REPLACE .fill p1 with: <img src="YOUR-THUMBNAIL.jpg" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"> -->
-<div class="g-full r">
-  <div class="cell">
-    <div class="fill p1"></div>
-    <div class="play"><div class="play-ring"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div>
-    <div class="cap"><span class="cap-title">MAIN CAMPAIGN FILM</span><span class="cap-sub">Campaign · 2024 · 4K</span></div>
-  </div>
-</div>
-
-<!-- Two social cuts -->
-<div class="g-duo r">
-  <div class="cell">
-    <div class="fill p2"></div>
-    <div class="play"><div class="play-ring"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div>
-    <div class="cap"><span class="cap-title">SOCIAL CUT — 30 SEC</span><span class="cap-sub">Instagram · Paid</span></div>
-  </div>
-  <div class="cell">
-    <div class="fill p3"></div>
-    <div class="play"><div class="play-ring"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div>
-    <div class="cap"><span class="cap-title">SOCIAL CUT — 15 SEC</span><span class="cap-sub">TikTok · Organic</span></div>
-  </div>
-</div>
-
-<!-- ═══════ 02 — LIVE EVENT ═══════ -->
-<div class="sec r">
-  <span class="sec-num">02</span>
-  <span class="sec-title">Live Event</span>
-  <div class="sec-line"></div>
-  <span class="sec-sub">Beyoncé Carter Tour</span>
-</div>
-
-<!-- Newspaper layout -->
-<div class="g-news r">
-  <div class="cell tall">
-    <div class="fill p4"></div>
-    <div class="img-hover"><span>Event Coverage</span></div>
-  </div>
-  <div class="cell wide-mid">
-    <div class="fill p5"></div>
-    <div class="play"><div class="play-ring"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div>
-    <div class="cap"><span class="cap-title">CONCERT RECAP</span><span class="cap-sub">Full Event · 2024</span></div>
-  </div>
-  <div class="cell">
-    <div class="fill p6"></div>
-    <div class="img-hover"><span>Behind the Scenes</span></div>
-  </div>
-  <div class="cell col3">
-    <div class="fill p7"></div>
-    <div class="play"><div class="play-ring"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div>
-    <div class="cap"><span class="cap-title">BACKSTAGE REEL</span><span class="cap-sub">Vertical · IG Story</span></div>
-  </div>
-</div>
-
-<!-- Three highlight cuts -->
-<div class="g-trio r">
-  <div class="cell">
-    <div class="fill p8"></div>
-    <div class="play"><div class="play-ring"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div>
-    <div class="cap"><span class="cap-title">HIGHLIGHT — 01</span><span class="cap-sub">TikTok · 2024</span></div>
-  </div>
-  <div class="cell">
-    <div class="fill p9"></div>
-    <div class="play"><div class="play-ring"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div>
-    <div class="cap"><span class="cap-title">HIGHLIGHT — 02</span><span class="cap-sub">TikTok · 2024</span></div>
-  </div>
-  <div class="cell">
-    <div class="fill p10"></div>
-    <div class="play"><div class="play-ring"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div>
-    <div class="cap"><span class="cap-title">HIGHLIGHT — 03</span><span class="cap-sub">Instagram · 2024</span></div>
-  </div>
-</div>
-
-<!-- ═══════ OOH PANORAMA BANNER ═══════ -->
-<div class="panorama r">
-  <div class="bg p1"></div>
-  <!-- ← REPLACE .bg with: <img src="YOUR-OOH-IMAGE.jpg" style="width:100%;height:100%;object-fit:cover;"> -->
-  <div class="pan-overlay">
-    <div class="pan-left">
-      <div class="pan-eyebrow">Out of Home · Print Production</div>
-      <div class="pan-title">OOH <span>PLACEMENTS</span></div>
-    </div>
-    <div class="pan-right">
-      <p><em>Large format signage, posters, and branded print materials.</em></p>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════ 03 — OOH & PRINT ═══════ -->
-<div class="sec r">
-  <span class="sec-num">03</span>
-  <span class="sec-title">OOH &amp; Print</span>
-  <div class="sec-line"></div>
-  <span class="sec-sub">Large Format · Signage · Posters</span>
-</div>
-
-<div class="g-maso r">
-  <div class="cell big"><div class="fill p2"></div><div class="img-hover"><span>Billboard</span></div></div>
-  <div class="cell"><div class="fill p5"></div><div class="img-hover"><span>Poster</span></div></div>
-  <div class="cell"><div class="fill p8"></div><div class="img-hover"><span>Signage</span></div></div>
-  <div class="cell tall"><div class="fill p3"></div><div class="img-hover"><span>Print</span></div></div>
-  <div class="cell"><div class="fill p6"></div><div class="img-hover"><span>Brochure</span></div></div>
-  <div class="cell wide"><div class="fill p9"></div><div class="img-hover"><span>Banner</span></div></div>
-  <div class="cell"><div class="fill p4"></div><div class="img-hover"><span>POS</span></div></div>
-  <div class="cell"><div class="fill p7"></div><div class="img-hover"><span>Flyer</span></div></div>
-  <div class="cell"><div class="fill p10"></div><div class="img-hover"><span>Magazine</span></div></div>
-</div>
-
-<!-- ═══════ 04 — ACTIVATION ═══════ -->
-<div class="sec r">
-  <span class="sec-num">04</span>
-  <span class="sec-title">Activation</span>
-  <div class="sec-line"></div>
-  <span class="sec-sub">Polls · Quizzes · Carousels</span>
-</div>
-
-<div class="g-feat r">
-  <div class="cell">
-    <div class="fill p5"></div>
-    <div class="play"><div class="play-ring"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div>
-    <div class="cap"><span class="cap-title">ACTIVATION REEL</span><span class="cap-sub">Digital · 2024</span></div>
-  </div>
-  <div class="cell">
-    <div class="fill p2"></div>
-    <div class="play"><div class="play-ring"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div>
-    <div class="cap"><span class="cap-title">QUIZ SERIES</span><span class="cap-sub">Instagram · Engagement</span></div>
-  </div>
-</div>
-
-<div class="g-trio r">
-  <div class="cell">
-    <div class="fill p7"></div>
-    <div class="play"><div class="play-ring"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div>
-    <div class="cap"><span class="cap-title">POLL CAMPAIGN</span><span class="cap-sub">Stories · 2024</span></div>
-  </div>
-  <div class="cell">
-    <div class="fill p3"></div>
-    <div class="play"><div class="play-ring"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div>
-    <div class="cap"><span class="cap-title">CAROUSEL SERIES</span><span class="cap-sub">Feed · 2024</span></div>
-  </div>
-  <div class="cell">
-    <div class="fill p9"></div>
-    <div class="play"><div class="play-ring"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div>
-    <div class="cap"><span class="cap-title">BRAND MOMENT</span><span class="cap-sub">Reel · 2024</span></div>
-  </div>
-</div>
-
-<!-- ═══════ 05 — DIGITAL PLACEMENTS ═══════ -->
-<div class="sec r">
-  <span class="sec-num">05</span>
-  <span class="sec-title">Digital Placements</span>
-  <div class="sec-line"></div>
-  <span class="sec-sub">Social · Paid · Organic</span>
-</div>
-
-<div class="ticker">
-  <div class="ticker-track">
-    <div class="t-item">Marriott Bonvoy</div><div class="t-item">Digital</div><div class="t-item">Social Media</div><div class="t-item">Live Event</div><div class="t-item">OOH</div><div class="t-item">Activation</div><div class="t-item">Polls</div><div class="t-item">Carousels</div><div class="t-item">Beyoncé Tour</div><div class="t-item">Gravity Media</div>
-    <div class="t-item">Marriott Bonvoy</div><div class="t-item">Digital</div><div class="t-item">Social Media</div><div class="t-item">Live Event</div><div class="t-item">OOH</div><div class="t-item">Activation</div><div class="t-item">Polls</div><div class="t-item">Carousels</div><div class="t-item">Beyoncé Tour</div><div class="t-item">Gravity Media</div>
-  </div>
-</div>
-
-<!-- Reels row -->
-<div class="g-reels r">
-  <div class="cell"><div class="fill p1"></div><div class="play"><div class="play-ring"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div><div class="cap"><span class="cap-title">REEL 01</span><span class="cap-sub">Instagram</span></div></div>
-  <div class="cell"><div class="fill p4"></div><div class="play"><div class="play-ring"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div><div class="cap"><span class="cap-title">REEL 02</span><span class="cap-sub">TikTok</span></div></div>
-  <div class="cell"><div class="fill p7"></div><div class="play"><div class="play-ring"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div><div class="cap"><span class="cap-title">REEL 03</span><span class="cap-sub">Story</span></div></div>
-  <div class="cell"><div class="fill p2"></div><div class="play"><div class="play-ring"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div><div class="cap"><span class="cap-title">REEL 04</span><span class="cap-sub">Instagram</span></div></div>
-  <div class="cell"><div class="fill p9"></div><div class="play"><div class="play-ring"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div><div class="cap"><span class="cap-title">REEL 05</span><span class="cap-sub">TikTok</span></div></div>
-</div>
-
-<!-- Final gallery -->
-<div class="g-maso r" style="grid-auto-rows:160px;">
-  <div class="cell"><div class="fill p3"></div><div class="img-hover"><span>View</span></div></div>
-  <div class="cell wide"><div class="fill p6"></div><div class="img-hover"><span>View</span></div></div>
-  <div class="cell"><div class="fill p9"></div><div class="img-hover"><span>View</span></div></div>
-  <div class="cell tall"><div class="fill p1"></div><div class="img-hover"><span>View</span></div></div>
-  <div class="cell"><div class="fill p4"></div><div class="img-hover"><span>View</span></div></div>
-  <div class="cell"><div class="fill p7"></div><div class="img-hover"><span>View</span></div></div>
-  <div class="cell"><div class="fill p10"></div><div class="img-hover"><span>View</span></div></div>
-  <div class="cell"><div class="fill p2"></div><div class="img-hover"><span>View</span></div></div>
-  <div class="cell wide"><div class="fill p5"></div><div class="img-hover"><span>View</span></div></div>
-  <div class="cell"><div class="fill p8"></div><div class="img-hover"><span>View</span></div></div>
-</div>
-
-<!-- NEXT BRAND -->
-<a href="#" class="next-brand">
-  <div>
-    <div class="next-label">Next Brand</div>
-    <div class="next-name">LA MER</div>
-  </div>
-  <div class="next-arrow">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-  </div>
-</a>
-
-<!-- FOOTER -->
-<footer>
-  <a href="https://www.thegravitymedia.com" style="display:flex;align-items:center;">
-    <svg style="width:90px;height:auto;display:block;opacity:0.5;" viewBox="0 0 3184.8 1163" xmlns="http://www.w3.org/2000/svg"><defs><style>path{fill:none;stroke:#f4f0eb;stroke-width:8;stroke-miterlimit:10;fill-rule:evenodd;}</style></defs><path d="M369.76,169.11c6.83-.76,13.66-1.52,20.49-2.28,5.77-.3,11.53-.61,17.3-.91,9.41.15,18.82.3,28.23.46,5.92.3,11.84.61,17.76.91,16.06,2.61,32.27,3.36,47.12,6.6,20.52,4.48,39.72,8,58.5,13.89,49.56,15.53,95.84,34.99,137.04,59.41,2.88,1.97,5.77,3.95,8.65,5.92-2.73,4.7-5.46,9.41-8.19,14.11-29.65-12.77-58.62-24.83-93.1-33.23-12.06-2.94-24.77-3.44-38.02-5.46-5.54-.15-11.08-.3-16.62-.46-10.13-1.47-29.03.37-38.47,2.05-14.55,2.58-28.84,4.05-42.11,7.97-23.78,7.03-47.43,14.04-67.15,25.5-6.98,3.87-13.96,7.74-20.94,11.61-3.49,2.2-6.98,4.4-10.47,6.6v284.09c.61.61,1.21,1.21,1.82,1.82v-.46c1.75-2.96,3.49-5.92,5.24-8.88,3.13-5.13,6.7-10.33,9.11-16.16,5.11-12.4,6.97-26.35,10.93-39.61,13.57-45.44,21.19-101.13,46.21-135.22,12.77-17.4,31.34-28.55,55.54-34.6,8.62-2.16,17.48-1.13,27.54-2.73,5.52-.88,13.54-.66,18.89.23,12.26,2.03,23.6,1.15,34.83,3.41,54.94,11.06,101.13,27.88,146.82,47.58,25.1,10.82,50.78,21.17,73.53,34.83,16.77-13.35,33.54-26.71,50.31-40.06,5.13-3.88,9.56-8.73,15.93-11.38,11.6-4.83,30.82-1.01,41.88,2.28,27.9,8.3,48.23,21.44,59.19,46.44,4.2,9.58,6.44,20.96,10.7,30.28,12.69-6.13,22.82-15.23,33.69-23.22,15.33-11.38,30.66-22.76,45.98-34.15,9.85-7.42,21.42-20.05,34.6-23.22,10.68-2.57,19.33,3.39,26.41,6.37,8.42,3.41,16.85,6.83,25.27,10.24,9,3.89,17.25,8.72,28.23,10.7,13.98,2.52,27.92-7.02,35.97-12.06,2.43-1.52,4.86-3.04,7.28-4.55,1.1,1.9,9.43,12.04,9.11,13.43-1.29,1.82-2.58,3.64-3.87,5.46-4.82,7.64-9.9,14.86-15.02,22.08-19.27,27.12-41.93,55.05-72.62,70.57-7.08,3.58-25.93,10.33-37.56,8.42-4.86-.61-9.71-1.21-14.57-1.82-10.56-2.66-19.95-7.01-27.77-12.52-10.25-7.22-18.47-18.6-30.28-23.9-16.69-7.49-36.95,2.31-42.34,14.8-3.15,7.29-2.28,17.66-2.28,27.77.08,16.77.15,33.54.23,50.31,0,54.2-.68,108.15-.68,161.62,0,33.42,1.29,68.73,20.03,83.54,3.33,2.63,7.22,4.84,11.61,6.37,19.38,6.76,37.97-4.8,50.31-12.06,2.84-1.67,5.87-4.43,9.33-5.24,2.64,4.13,7.68,8.34,9.11,13.2-39.38,27.31-78.77,54.64-118.14,81.95-3.72-.08-7.44-.15-11.15-.23-10.73-.49-20.83-2.02-29.82-4.33-42.87-10.99-57.68-32.66-66.7-77.4-3.4-16.87-2.96-37.34-2.96-56.68v-23.67c-.08-43.93-.15-87.87-.23-131.8-.08-13.88-.15-27.77-.23-41.66v-13.89c-1.11-6.79-.84-13.53-2.5-19.58-6.7-24.32-24.59-39.12-51.9-42.8-4.28,5.82-9.44,10.91-13.43,17.3-7.74,14.04-15.48,28.08-23.22,42.11-13.06,20.86-31.94,35.13-57.82,43.25-3.34,1.29-6.68,2.58-10.02,3.87,1.35,4.72,6.93,8.5,9.79,12.06,4.55,5.84,9.11,11.69,13.66,17.53,10.04,15,17.92,31.62,22.99,51.67.99,6.45,1.97,12.9,2.96,19.35,2.46,14.54-.72,34.19-3.87,45.53-7.62,27.42-18.96,48.68-33.92,68.52-4.18,5.55-9.35,10.36-13.66,15.71-16.52,20.53-43.89,38.13-69.66,49.4-19.85,8.68-41.25,15.21-65.1,20.49-42.01,9.3-96.28,3.53-133.17-5.92-56.4-14.45-106.53-32.33-150.01-59.41-23.43-14.59-43.93-31.43-64.88-48.26-10.75-8.64-21.4-19.73-30.05-30.5-9.27-11.56-19.32-22.52-28-34.83-26.46-37.52-44.25-80.54-57.14-132.03-7.19-28.72-11.59-74.42-5.24-108.13,3.13-16.59,6.04-32.13,10.7-46.89,9.42-29.8,23.52-56.14,38.7-80.36,35.43-56.51,82.79-102.87,146.6-130.89,16.48-7.24,33.8-14.63,53.04-19.12l35.74-7.06ZM369.76,160.96"/><path d="M2503.45,361.91h83.77v63.51c-3.95-3.87-7.89-7.74-11.84-11.61-9.63-7.78-17.87-16.75-30.05-22.08-8.18-3.58-17.79-5.22-27.77-7.06-4.7-.53-9.41-1.06-14.11-1.59v251.76c.08,18.74.15,37.49.23,56.23v10.93c0,6.87.31,13.03,1.59,18.89,3.41,15.54,9.19,27.16,17.53,37.56,12.55,15.65,41.48,26.39,70.57,19.58,4.17-1.29,8.35-2.58,12.52-3.87,2.88-1.37,5.77-2.73,8.65-4.1,3.19,4.4,6.37,8.8,9.56,13.2l-.23.46c-45.22,31.33-90.45,62.68-135.67,94.01h-7.97c-13.17,0-23.48-1.54-33.46-4.55-34.76-10.5-57.15-28.91-65.56-65.56-33.61,23.37-67.23,46.74-100.84,70.11-3.64-.08-7.28-.15-10.93-.23-3.11-.15-6.22-.3-9.33-.46-8.06-1.39-16-2.4-22.99-4.55-29.34-9.06-49.77-25.82-58.96-54.86-3.9-12.32-4.84-26.61-7.28-40.52-2.07-11.82-1.37-25.23-1.37-38.47v-14.34c-.08-46.51-.15-93.03-.23-139.54,0-39.42,2.53-69.56-14.34-92.65-8.1-11.09-19.06-18.88-34.37-22.76-4.49-1.14-8.71-.77-13.89-1.59-4.92-.78-20.52.18-23.22,2.28,4.61,7.89,5.59,19.25,7.74,29.14,10.54,48.5-6,94.01-20.49,126.79-5.41,12.25-12.03,23.52-18.67,34.6-23.57,39.35-50.52,75.35-85.59,103.12-12.85,10.17-25.67,20.52-39.15,30.05-13.28,8.95-26.56,17.91-39.84,26.86-27.47,19.04-54.94,38.09-82.4,57.14l-.46-.23c-1.59-1.97-3.19-3.95-4.78-5.92-5.4-6.93-11.64-13.05-17.07-19.8-16.09-19.98-39.98-39.01-68.06-46.89-9.97-2.8-24.81-4.95-37.33-2.73-15.48,2.74-28.82,5.82-41.66,10.93-6.75,2.96-13.51,5.92-20.26,8.88-2.6-4.07-7.86-8.34-9.11-13.2,27.49-18.59,65.16-39.98,75.8-74.66,2.45-7.99,2.05-17.39,2.05-27.54-.08-4.48-.15-8.95-.23-13.43-.23-21.09-.46-42.19-.68-63.28.23-23.14-.08-51.29.15-74.43,0-14.52-.66-19.14-.66-31.68,0-23.21-7.65-38.06-27.72-46.86-11.25-4.93-32.52-3.32-50.18-.29-5.7.98-11.12,1.75-15.93,3.64-2.66,1.29-5.31,2.58-7.97,3.87-3.03-4.25-6.07-8.5-9.11-12.75.08-.3-.85-2.61-.77-2.91,10.09-7.13,21.18-12.27,31.28-19.4,22.91-15.63,45.83-31.26,68.75-46.89,7.97-5.46,15.94-10.93,23.9-16.39,5.01-3.53,9.71-7.41,15.93-9.79,14.18-5.42,38.43,1.42,49.85,5.46,49.55,17.53,52.1,44.04,52.01,110.47,14.49-9.94,28.99-19.88,43.48-29.82,47.72-33,95.46-66.02,143.18-99.02,20.09,12.88,41.27,34.58,55.32,53.72,5.93,8.08,13.18,16.8,17.07,26.63l.68-.68c27.54-19.04,55.09-38.09,82.63-57.14,15.29-10.78,32.9-28.28,62.14-21.85,7.74,1.7,15.33,3.44,22.31,6.15,9.26,3.6,17.17,7.92,24.36,13.43,10.45,8.01,18.24,18.64,23.45,31.87,10.78,27.39,10.7,65.68,10.7,103.57.08,44.84.15,89.69.23,134.53,0,21.12-2.5,46.24,1.59,64.88,7.62,34.66,31.5,60.76,76.49,54.63-.3-5.84-.61-11.69-.91-17.53v-361.26c-.08-18.51-.15-37.03-.23-55.54.15-22.91.3-45.83.46-68.75.53-5.69,1.06-11.38,1.59-17.07,3.57-19.15,6.4-37.39,12.75-53.72,26.64-68.47,81.92-108.62,150.01-135.67,27.81-11.05,57.93-17.2,91.51-23.45,14.76-2.75,30.27-1.41,45.75-3.87,12.11-1.92,24.89-.28,37.79-1.82,3.8-.45,12.2-1.26,15.48.23,2.96,4.25,5.92,8.5,8.88,12.75-14.09-.14-29.04-.09-42.11,2.05-11.12,1.82-22.3,1.11-32.78,2.96-19.26,3.39-37.64,3.86-53.49,10.02-52.8,20.5-88.72,57.71-103.57,116.09-5.16,20.29-4.33,46.83-4.33,71.93.08,37.25.15,74.52.23,111.77Z"/><path d="M2128.31,123.12c11.38,5.01,22.76,10.02,34.15,15.02,22.49,9.54,45.28,18.46,65.56,30.28,11.49,6.7,25.83,12.27,32.55,23.67,4.6,7.8,1.77,16.48,3.41,27.54,2.93,19.69-2.73,44.86,2.5,62.14,3.52,11.63,14.04,21.81,24.58,26.41,3.34.99,6.68,1.97,10.02,2.96l-.46.23c-5.31,3.79-10.62,7.59-15.93,11.38-5.77-.99-11.53-1.97-17.3-2.96-15.26-3.28-29.65-5.99-43.25-10.24-32.87-10.29-77.17-28.69-86.96-61.23-5.88-19.56,2.23-41.02,7.97-55.09,3.28-8.04,6.59-20.97,2.73-30.96-4.44-11.48-13.83-19.39-23.67-25.5-2.88-1.52-5.77-3.04-8.65-4.55l.46-.68c4.1-2.81,8.2-5.62,12.29-8.42Z"/><path d="M333.56,308.19c-3.19,2.73-6.37,5.46-9.56,8.19-7.97,6.4-19.11,16.9-25.5,24.81-7.36,8.57-14.72,17.15-22.08,25.72-15.49,20.46-29.72,41.41-41.88,65.33-3.49,7.13-6.98,14.27-10.47,21.4,6.45,3.34,12.9,6.68,19.35,10.02,22.02,9.68,42.13,20.31,60.55,33.46,6.75,5.46,13.51,10.93,20.26,16.39,3.26,3.11,6.53,6.22,9.79,9.33v-200.32c0-2.71.65-13.06-.46-14.34Z"/><path d="M3011.99,361.91c12.1-.06,23.8,2.93,33.46,5.92,27.54,8.52,45.43,23.14,56.23,48.26,6.3,14.66,8.38,30.98,11.38,49.4v46.21c.08,30.88.15,61.77.23,92.65-.08,33.91-.15,67.84-.23,101.75-.15,13.43-.3,26.86-.46,40.29-.23,6.07-.46,12.14-.68,18.21-1.29,11.23-2.58,22.46-3.87,33.69-5.12,25.53-10.48,49.07-19.12,70.79-42.81,107.58-132.16,172.17-236.74,217.85-31.82,13.9-64.99,26.06-100.16,37.1-8.8,2.58-17.6,5.16-26.41,7.74-2.99.91-8,3.34-11.15,2.73-1.14-5.31-2.28-10.62-3.41-15.93,54.43-14.8,107.21-33.13,151.15-58.96,22.92-13.48,45.2-25.96,61.23-46.21,17.04-21.52,27.51-46.78,36.88-76.49,5.66-17.94,10.43-36.75,15.25-56.23,1.82-11.61,3.64-23.22,5.46-34.83,3.9-21.6,2.74-47.63,2.73-72.16-15.78,10.93-31.57,21.85-47.35,32.78-17.37,11.76-34.75,23.52-52.13,35.28-17,11.99-34,23.98-50.99,35.97l-.68-.46c-1.47-3.65-4.77-6.42-7.06-9.33-5.3-6.75-11.02-12.78-16.62-19.12-19.12-21.65-43.33-38.09-74.66-47.58-8.26-2.5-27.08-6.78-38.02-4.78-29.51,5.39-56.91,20.51-78.76,34.37l-.46-.23c-3.03-4.25-6.07-8.5-9.11-12.75l.23-.68c25.8-17.98,51.6-35.97,77.4-53.95,10.57-7.45,23.35-13.24,28.45-26.18,6.17-15.65,2.73-45.17,2.73-65.79v-106.31c0-36.7.15-65.2-20.26-81.49-15.3-12.22-41.93-18.71-70.11-13.89-8.42,1.14-16.85,2.28-25.27,3.41-3.11-4.4-6.22-8.8-9.33-13.2,2.66-1.82,5.31-3.64,7.97-5.46,8.57-6.07,17.15-12.14,25.72-18.21,22.53-15.48,45.07-30.96,67.61-46.44,7.66-5.24,15.33-10.47,22.99-15.71,4.45-3.13,8.8-6.88,14.11-9.11,9.68-4.05,24.19-2.57,34.6-.23,24.32,5.47,44.56,13.05,57.59,29.59,9.96,12.65,15.46,27.37,19.35,46.44.68,6.6,1.37,13.2,2.05,19.8.08,3.41.15,6.83.23,10.24l.68-.68c4.63-3.26,9.26-6.53,13.89-9.79,10.86-7.66,21.69-15.16,32.32-22.76,23.61-16.88,48.77-32.08,73.07-48.26,6.75-4.78,13.51-9.56,20.26-14.34,4.85-3.47,9.17-7.73,15.02-10.24,3.81-1.64,8.6-1.11,12.75-2.73Z"/><path d="M1327.72,362.6c15.4,7.74,30.81,15.48,46.21,23.22,28.78,14.7,57.39,27.17,91.28,37.33,16.5,4.95,42.47,12.31,64.19,8.42,10.17-1.82,19.69-3.24,28.23-6.6,5.46-2.58,10.93-5.16,16.39-7.74,3.03,4.32,6.07,8.65,9.11,12.98l-.23.46c-19.8,13.66-39.61,27.32-59.41,40.97-7.13,5.02-18.35,9.73-21.85,18.21-2.48,6-2.65,17.81-1.37,25.72v173.23c0,29.86.53,58.05,17.07,71.25,13.59,10.84,45.6,15.9,68.52,8.88,8.63-2.65,15.67-8.59,24.13-10.47,3.03,4.4,6.07,8.8,9.11,13.2-50.99,35.36-101.99,70.72-152.97,106.08-5.94,1.92-20.61-2.77-24.36-4.1-21.21-7.53-37.92-20.54-49.85-37.33-9.49-13.36-14.54-28.23-17.98-48.03-.53-12.97-1.06-25.95-1.59-38.93l-.46.46c-7.93,3.1-15.3,10.24-22.08,15.02-13.88,9.64-27.77,19.27-41.66,28.91-40.36,27.92-80.74,55.85-121.1,83.77-.68-.61-1.37-1.21-2.05-1.82-3.34-3.64-6.68-7.28-10.02-10.93-7.44-9.18-14.87-18.36-22.31-27.54-18.23-24.81-32.95-51.98-45.07-83.09-5.13-13.17-7.97-27.55-11.15-42.57-8.17-38.56-.31-84.38,10.93-113.13,13.87-35.49,31.87-63.57,53.27-91.05,6.67-8.57,15.11-15.75,21.85-24.13,8.94-11.1,20.74-21.58,31.87-30.5,13.03-10.45,25.07-22.41,38.47-32.55,24.96-19.2,49.93-38.4,74.89-57.59Z"/><path d="M638.37,385.36c-3.26.38-6.53.76-9.79,1.14-7.4,1.58-14.22,3.63-20.49,6.37-27.15,11.91-42.73,38.5-54.18,66.24-4.02,9.73-7.84,20.46-10.93,30.96-1.2,4.1-.83,9.47,2.05,11.38,3.54,2.35,9.37-.1,12.29-1.37,9.89-4.28,20.42-8.85,29.14-14.57,8.83-5.79,15.24-13.59,23.22-20.03,11.4-9.22,21.3-20.62,31.64-30.96,13.73-13.88,27.47-27.77,41.2-41.66-4.1-1.37-8.2-2.73-12.29-4.1-9.39-2.81-19.73-3.36-31.87-3.41Z"/><path d="M1903.86,452.51c-10.2,5.13-17.97,11.49-26.86,17.76-12.06,8.42-24.13,16.85-36.19,25.27-9.57,6.79-21.37,12.63-25.95,24.36-3.57,9.13-2.05,24.69-2.05,36.88v124.74c0,8.02-1.08,18.35,1.37,24.36,3.92,9.63,17.06,15.18,25.5,20.49,20.71,13.04,40.58,28.24,62.37,40.06,7.91-5.98,14.82-14.51,20.94-22.31,20.98-26.75,35.16-47.97,44.84-86.73,11.04-44.18-5.14-106.59-17.98-139.09-8.1-20.5-16.95-37.53-29.36-53.27-3.73-4.72-8.47-12.5-16.62-12.52Z"/><path d="M1245.31,466.17c-10.14,4.98-13.43,15.31-17.98,25.72-7.4,16.94-12.62,34.73-16.62,55.77-1.59,8.35-.78,16.78-1.59,26.18.08,6.15.15,12.29.23,18.44,3.11,18.91,3.53,36.43,8.42,52.81,11.5,38.49,26.24,67.74,45.3,97.88,6.15,9.72,13.02,18.56,19.8,27.54,2.88,3.64,5.77,7.28,8.65,10.93,5.94-1.98,11.53-6.8,16.62-10.02,14.31-9.03,27.6-19.02,41.2-28.68,8.03-5.71,17.51-10.16,21.4-20.03,3.6-9.14,1.82-25.51,1.82-37.56v-134.08c0-7.43,1.71-18.26-.68-23.9-3.11-7.33-22.35-13.81-30.28-17.3-21.47-10.17-42.95-20.34-64.42-30.5-7.6-3.86-22.05-13.2-31.87-13.2Z"/><path d="M2910.24,466.4c-5.01.91-10.02,1.82-15.02,2.73-15.93,4.79-40.59,15.32-48.26,28-5.83,9.64-3.2,37.36-3.19,52.58.08,33.99.15,67.99.23,101.98,0,18.15-1.95,39.05,3.41,52.13,8.4,20.46,24.28,32.66,40.52,45.3,11.15,8.95,22.31,17.91,33.46,26.86,4.55,3.19,9.11,6.37,13.66,9.56,12.59-6.22,24.07-15.79,34.83-24.13,3.4-2.64,9.66-6.16,11.38-10.24,3.41-8.09,1.13-18.63,2.73-28.91.08-24.35.15-48.72.23-73.07v-81.95c0-13.9,1.66-30.74-1.14-42.8-8.02-34.59-29.95-58.13-72.84-58.05Z"/><path d="M217.47,482.56c-.68,6.82-1.74,14.78-2.96,22.08-.53,7.36-1.06,14.72-1.59,22.08-.08,9.1-.15,18.21-.23,27.32.08,4.7.15,9.41.23,14.11,1.56,9.79,1.06,20.15,2.73,29.36,2.69,14.79,3.82,28.55,7.28,42.11,10.53,41.25,25.23,77.63,44.84,109.72,12.73,20.83,26.09,38.06,45.75,51.9,5.66,3.98,13.07,9.95,20.49,11.61-.08-56.83-.15-113.67-.23-170.5-25.95-10.85-51.9-21.7-77.85-32.55,1.32-8.3,2.82-17.05,4.33-26.18.97-5.86.68-14.32-.23-19.8-.94-5.71-.76-10.59-2.05-15.71-4.71-18.77-12.32-33-22.31-46.21-4.92-6.51-11.09-15.2-18.21-19.35Z"/><path d="M369.76,823.1c10.21.55,22.41,2.75,33.46.91,17.89-2.97,34.26-4.38,49.17-10.02,60.92-23.02,102.97-65.59,128.16-124.06,4.67-10.85,7.89-22.55,10.7-35.28,2.26-10.28,3.53-24.99,1.59-36.42-1.13-6.64-1-12.45-2.5-18.44-6.5-25.85-17.66-43.53-36.19-57.14-6.48-4.76-14.12-11-22.31-13.66-4.98,18.27-14.15,35.33-21.4,52.13-14.53,33.66-28.97,67-65.56,78.53-6.29,1.98-12.42,1.94-20.03,3.19-8.68,1.42-20.23.54-28.23-.91-9.56-1.73-18.44-3.68-26.86-5.92v167.08Z"/></svg>
+<!-- ── HERO ─────────────────────────────────────────── -->
+<div class="hero">
+  <h1>
+    <span class="hero-lw"><span class="hero-ln l1">Marriott</span></span>
+    <span class="hero-lw"><span class="hero-ln l2">Bonvoy</span></span>
+  </h1>
+  <a href="mailto:hello@thegravitymedia.com" class="hero-cta">
+    <span class="dot"></span>Let's Work
   </a>
-  <p>© 2024 Gravity Media · Creative Content Studio</p>
-  <p>gravitymedia.now@gmail.com</p>
-</footer>
+</div>
 
+<!-- ── HERO VIDEO (Primary) ──────────────────────────── -->
+<div class="fw-video ar-16-7 r r-scale"
+     data-src="https://www.youtube.com/embed/W5LqzcZI70U?autoplay=1&mute=1&loop=1&playlist=W5LqzcZI70U&controls=0&playsinline=1&rel=0"
+     style="background-image:url(https://img.youtube.com/vi/W5LqzcZI70U/maxresdefault.jpg)">
+  <div class="fw-thumb">
+    <div class="fw-play">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="white"><polygon points="3,1 17,9 3,17"/></svg>
+    </div>
+  </div>
+</div>
+
+<!-- ── TICKER ────────────────────────────────────────── -->
+<div class="ticker">
+  <div class="ticker-t">
+    <span class="t-item"><span class="t-dot"></span>Marriott Bonvoy</span><span class="t-item"><span class="t-dot"></span>Digital</span><span class="t-item"><span class="t-dot"></span>Social</span><span class="t-item"><span class="t-dot"></span>Live Concert</span><span class="t-item"><span class="t-dot"></span>Activation</span><span class="t-item"><span class="t-dot"></span>Placements</span><span class="t-item"><span class="t-dot"></span>16 : 9</span><span class="t-item"><span class="t-dot"></span>9 : 16</span><span class="t-item"><span class="t-dot"></span>1 : 1</span><span class="t-item"><span class="t-dot"></span>Gravity Media</span><span class="t-item"><span class="t-dot"></span>2024</span>
+    <span class="t-item"><span class="t-dot"></span>Marriott Bonvoy</span><span class="t-item"><span class="t-dot"></span>Digital</span><span class="t-item"><span class="t-dot"></span>Social</span><span class="t-item"><span class="t-dot"></span>Live Concert</span><span class="t-item"><span class="t-dot"></span>Activation</span><span class="t-item"><span class="t-dot"></span>Placements</span><span class="t-item"><span class="t-dot"></span>16 : 9</span><span class="t-item"><span class="t-dot"></span>9 : 16</span><span class="t-item"><span class="t-dot"></span>1 : 1</span><span class="t-item"><span class="t-dot"></span>Gravity Media</span><span class="t-item"><span class="t-dot"></span>2024</span>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════
+     SECTION 01 — DIGITAL / SOCIAL  (4 videos)
+     Mosaic A: 16:9 + 2x1:1 + 9:16
+════════════════════════════════════════════════════ -->
+<div class="sec-head">
+  <span class="sec-label r r-left">01 — Digital / Social</span>
+  <div class="pills r d2">
+    <span class="pill">16 : 9</span><span class="pill">1 : 1</span><span class="pill">9 : 16</span>
+  </div>
+</div>
+
+<div class="grid-a">
+  <!-- 16:9 -->
+  <div class="vc v1 r r-scale d1"
+       data-src="https://www.youtube.com/embed/FcUkjnssEB4?rel=0&playsinline=1&autoplay=1"
+       style="background-image:url(https://img.youtube.com/vi/FcUkjnssEB4/maxresdefault.jpg)">
+    <div class="vc-thumb"><div class="play-btn"><svg width="14" height="14" viewBox="0 0 14 14" fill="white"><polygon points="2,1 13,7 2,13"/></svg></div></div>
+    <span class="vc-tag">16 : 9</span>
+  </div>
+  <!-- 1:1 top -->
+  <div class="vc v2 cover-1x1 r r-scale d2"
+       data-src="https://www.youtube.com/embed/Ev_w2FOxnJc?rel=0&playsinline=1&autoplay=1"
+       style="background-image:url(https://img.youtube.com/vi/Ev_w2FOxnJc/maxresdefault.jpg)">
+    <div class="vc-thumb"><div class="play-btn"><svg width="14" height="14" viewBox="0 0 14 14" fill="white"><polygon points="2,1 13,7 2,13"/></svg></div></div>
+    <span class="vc-tag">1 : 1</span>
+  </div>
+  <!-- 9:16 -->
+  <div class="vc v3 cover-916 r r-scale d3"
+       data-src="https://www.youtube.com/embed/34JQIrmg1QQ?rel=0&playsinline=1&autoplay=1"
+       style="background-image:url(https://img.youtube.com/vi/34JQIrmg1QQ/maxresdefault.jpg)">
+    <div class="vc-thumb"><div class="play-btn"><svg width="14" height="14" viewBox="0 0 14 14" fill="white"><polygon points="2,1 13,7 2,13"/></svg></div></div>
+    <span class="vc-tag">9 : 16</span>
+  </div>
+  <!-- 1:1 bottom -->
+  <div class="vc v4 cover-1x1 r r-scale d4"
+       data-src="https://www.youtube.com/embed/c64Xweu4NZc?rel=0&playsinline=1&autoplay=1"
+       style="background-image:url(https://img.youtube.com/vi/c64Xweu4NZc/maxresdefault.jpg)">
+    <div class="vc-thumb"><div class="play-btn"><svg width="14" height="14" viewBox="0 0 14 14" fill="white"><polygon points="2,1 13,7 2,13"/></svg></div></div>
+    <span class="vc-tag">1 : 1</span>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════
+     SECTION 02 — LIVE CONCERT  (4 videos, all 16:9)
+════════════════════════════════════════════════════ -->
+<div class="sec-head">
+  <span class="sec-label r r-left">02 — Live Concert</span>
+  <div class="pills r d2"><span class="pill">16 : 9</span></div>
+</div>
+
+<div class="fw-video ar-16-9 r r-scale"
+     data-src="https://www.youtube.com/embed/Mr9AKnrP4XA?rel=0&playsinline=1&autoplay=1"
+     style="margin:0 var(--gap) var(--gap); background-image:url(https://img.youtube.com/vi/Mr9AKnrP4XA/maxresdefault.jpg)">
+  <div class="fw-thumb">
+    <div class="fw-play"><svg width="18" height="18" viewBox="0 0 18 18" fill="white"><polygon points="3,1 17,9 3,17"/></svg></div>
+  </div>
+</div>
+
+<div class="grid-b">
+  <div class="vc r r-scale d1"
+       data-src="https://www.youtube.com/embed/Q2ngqsGyuh4?rel=0&playsinline=1&autoplay=1"
+       style="background-image:url(https://img.youtube.com/vi/Q2ngqsGyuh4/maxresdefault.jpg)">
+    <div class="vc-thumb"><div class="play-btn"><svg width="14" height="14" viewBox="0 0 14 14" fill="white"><polygon points="2,1 13,7 2,13"/></svg></div></div>
+    <span class="vc-tag">Concert Cut 01</span>
+  </div>
+  <div class="vc r r-scale d2"
+       data-src="https://www.youtube.com/embed/w9cnF9a5SLk?rel=0&playsinline=1&autoplay=1"
+       style="background-image:url(https://img.youtube.com/vi/w9cnF9a5SLk/maxresdefault.jpg)">
+    <div class="vc-thumb"><div class="play-btn"><svg width="14" height="14" viewBox="0 0 14 14" fill="white"><polygon points="2,1 13,7 2,13"/></svg></div></div>
+    <span class="vc-tag">Concert Cut 02</span>
+  </div>
+  <div class="vc r r-scale d3"
+       data-src="https://www.youtube.com/embed/qmlT7Ssq-Zc?rel=0&playsinline=1&autoplay=1"
+       style="background-image:url(https://img.youtube.com/vi/qmlT7Ssq-Zc/maxresdefault.jpg)">
+    <div class="vc-thumb"><div class="play-btn"><svg width="14" height="14" viewBox="0 0 14 14" fill="white"><polygon points="2,1 13,7 2,13"/></svg></div></div>
+    <span class="vc-tag">Concert Cut 03</span>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════
+     SECTION 03 — ACTIVATION  (6 videos)
+     Mosaic C (9:16 + 2x16:9) + Mosaic D (16:9 + 2x1:1)
+════════════════════════════════════════════════════ -->
+<div class="sec-head">
+  <span class="sec-label r r-left">03 — Activation</span>
+  <div class="pills r d2"><span class="pill">9 : 16</span><span class="pill">16 : 9</span><span class="pill">1 : 1</span></div>
+</div>
+
+<div class="grid-c">
+  <!-- 9:16 left -->
+  <div class="vc v1 cover-916 r r-scale d1"
+       data-src="https://www.youtube.com/embed/N084alt0u54?rel=0&playsinline=1&autoplay=1"
+       style="background-image:url(https://img.youtube.com/vi/N084alt0u54/maxresdefault.jpg)">
+    <div class="vc-thumb"><div class="play-btn"><svg width="14" height="14" viewBox="0 0 14 14" fill="white"><polygon points="2,1 13,7 2,13"/></svg></div></div>
+    <span class="vc-tag">9 : 16</span>
+  </div>
+  <!-- 16:9 stacked right -->
+  <div class="vc v2 r r-scale d2"
+       data-src="https://www.youtube.com/embed/o2DLMME0nRc?rel=0&playsinline=1&autoplay=1"
+       style="background-image:url(https://img.youtube.com/vi/o2DLMME0nRc/maxresdefault.jpg)">
+    <div class="vc-thumb"><div class="play-btn"><svg width="14" height="14" viewBox="0 0 14 14" fill="white"><polygon points="2,1 13,7 2,13"/></svg></div></div>
+    <span class="vc-tag">Activation 01</span>
+  </div>
+  <div class="vc v3 r r-scale d3"
+       data-src="https://www.youtube.com/embed/9IoDvwJceL4?rel=0&playsinline=1&autoplay=1"
+       style="background-image:url(https://img.youtube.com/vi/9IoDvwJceL4/maxresdefault.jpg)">
+    <div class="vc-thumb"><div class="play-btn"><svg width="14" height="14" viewBox="0 0 14 14" fill="white"><polygon points="2,1 13,7 2,13"/></svg></div></div>
+    <span class="vc-tag">Activation 02</span>
+  </div>
+</div>
+
+<!-- Activation row 2: wide 16:9 + stacked 1:1 -->
+<div class="grid-d">
+  <div class="vc v1 r r-scale d1"
+       data-src="https://www.youtube.com/embed/XTEqQLLjRAw?rel=0&playsinline=1&autoplay=1"
+       style="background-image:url(https://img.youtube.com/vi/XTEqQLLjRAw/maxresdefault.jpg)">
+    <div class="vc-thumb"><div class="play-btn"><svg width="14" height="14" viewBox="0 0 14 14" fill="white"><polygon points="2,1 13,7 2,13"/></svg></div></div>
+    <span class="vc-tag">Activation 03</span>
+  </div>
+  <div class="vc v2 cover-1x1 r r-scale d2"
+       data-src="https://www.youtube.com/embed/H3irCpm39L4?rel=0&playsinline=1&autoplay=1"
+       style="background-image:url(https://img.youtube.com/vi/H3irCpm39L4/maxresdefault.jpg)">
+    <div class="vc-thumb"><div class="play-btn"><svg width="14" height="14" viewBox="0 0 14 14" fill="white"><polygon points="2,1 13,7 2,13"/></svg></div></div>
+    <span class="vc-tag">1 : 1</span>
+  </div>
+  <div class="vc v3 cover-1x1 r r-scale d3"
+       data-src="https://www.youtube.com/embed/eNC9mfpmbmE?rel=0&playsinline=1&autoplay=1"
+       style="background-image:url(https://img.youtube.com/vi/eNC9mfpmbmE/maxresdefault.jpg)">
+    <div class="vc-thumb"><div class="play-btn"><svg width="14" height="14" viewBox="0 0 14 14" fill="white"><polygon points="2,1 13,7 2,13"/></svg></div></div>
+    <span class="vc-tag">1 : 1</span>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════
+     SECTION 04 — PLACEMENTS  (7 videos)
+     Mosaic E (2x9:16 + 16:9) + Mosaic F (9:16 + 2x1:1 + 9:16)
+════════════════════════════════════════════════════ -->
+<div class="sec-head">
+  <span class="sec-label r r-left">04 — Placements</span>
+  <div class="pills r d2"><span class="pill">16 : 9</span><span class="pill">1 : 1</span><span class="pill">9 : 16</span></div>
+</div>
+
+<!-- Row 1: 2x 9:16 + wide 16:9 -->
+<div class="grid-e">
+  <div class="vc v1 cover-916 r r-scale d1"
+       data-src="https://www.youtube.com/embed/vwHtME7wMCo?rel=0&playsinline=1&autoplay=1"
+       style="background-image:url(https://img.youtube.com/vi/vwHtME7wMCo/maxresdefault.jpg)">
+    <div class="vc-thumb"><div class="play-btn"><svg width="14" height="14" viewBox="0 0 14 14" fill="white"><polygon points="2,1 13,7 2,13"/></svg></div></div>
+    <span class="vc-tag">Vertical 01</span>
+  </div>
+  <div class="vc v2 cover-916 r r-scale d2"
+       data-src="https://www.youtube.com/embed/rn1gKXoMFdY?rel=0&playsinline=1&autoplay=1"
+       style="background-image:url(https://img.youtube.com/vi/rn1gKXoMFdY/maxresdefault.jpg)">
+    <div class="vc-thumb"><div class="play-btn"><svg width="14" height="14" viewBox="0 0 14 14" fill="white"><polygon points="2,1 13,7 2,13"/></svg></div></div>
+    <span class="vc-tag">Vertical 02</span>
+  </div>
+  <div class="vc v3 r r-scale d3"
+       data-src="https://www.youtube.com/embed/2ra_kaZvdrs?rel=0&playsinline=1&autoplay=1"
+       style="background-image:url(https://img.youtube.com/vi/2ra_kaZvdrs/maxresdefault.jpg)">
+    <div class="vc-thumb"><div class="play-btn"><svg width="14" height="14" viewBox="0 0 14 14" fill="white"><polygon points="2,1 13,7 2,13"/></svg></div></div>
+    <span class="vc-tag">Wide Cut</span>
+  </div>
+</div>
+
+<!-- Row 2: symmetric 9:16 | 1:1 stack | 9:16 -->
+<div class="grid-f">
+  <div class="vc v1 cover-916 r r-scale d1"
+       data-src="https://www.youtube.com/embed/QedX5IZcwDg?rel=0&playsinline=1&autoplay=1"
+       style="background-image:url(https://img.youtube.com/vi/QedX5IZcwDg/maxresdefault.jpg)">
+    <div class="vc-thumb"><div class="play-btn"><svg width="14" height="14" viewBox="0 0 14 14" fill="white"><polygon points="2,1 13,7 2,13"/></svg></div></div>
+    <span class="vc-tag">Vertical 03</span>
+  </div>
+  <div class="vc v2 cover-1x1 r r-scale d2"
+       data-src="https://www.youtube.com/embed/f-Xx-5vxnZo?rel=0&playsinline=1&autoplay=1"
+       style="background-image:url(https://img.youtube.com/vi/f-Xx-5vxnZo/maxresdefault.jpg)">
+    <div class="vc-thumb"><div class="play-btn"><svg width="14" height="14" viewBox="0 0 14 14" fill="white"><polygon points="2,1 13,7 2,13"/></svg></div></div>
+    <span class="vc-tag">1 : 1</span>
+  </div>
+  <div class="vc v3 cover-1x1 r r-scale d3"
+       data-src="https://www.youtube.com/embed/E7SiAWnSyRI?rel=0&playsinline=1&autoplay=1"
+       style="background-image:url(https://img.youtube.com/vi/E7SiAWnSyRI/maxresdefault.jpg)">
+    <div class="vc-thumb"><div class="play-btn"><svg width="14" height="14" viewBox="0 0 14 14" fill="white"><polygon points="2,1 13,7 2,13"/></svg></div></div>
+    <span class="vc-tag">1 : 1</span>
+  </div>
+  <div class="vc v4 cover-916 r r-scale d4"
+       data-src="https://www.youtube.com/embed/kqLR7AilTNk?rel=0&playsinline=1&autoplay=1"
+       style="background-image:url(https://img.youtube.com/vi/kqLR7AilTNk/maxresdefault.jpg)">
+    <div class="vc-thumb"><div class="play-btn"><svg width="14" height="14" viewBox="0 0 14 14" fill="white"><polygon points="2,1 13,7 2,13"/></svg></div></div>
+    <span class="vc-tag">Vertical 04</span>
+  </div>
+</div>
+
+
+<!-- ── FOOTER CTA ────────────────────────────────────── -->
+<div class="footer-cta">
+  <span class="fc-eye r">Next Project</span>
+  <h2 class="fc-title r" style="transition-delay:.1s">Ready to make<br>something real?</h2>
+  <a href="mailto:hello@thegravitymedia.com" class="fc-btn r d2">
+    <span class="dot"></span>Contact Now
+  </a>
+</div>
+
+<!-- ── FOOTER ────────────────────────────────────────── -->
+<div class="footer">
+  <p>© 2024 Gravity Media</p>
+  <div class="f-links">
+    <a href="#">Instagram</a>
+    <a href="#">YouTube</a>
+    <a href="#">LinkedIn</a>
+  </div>
+</div>
+
+<!-- ── SCROLL ENGINE + CLICK-TO-PLAY ─────────────────── -->
 <script>
-// Scroll reveal
-const io = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); }
+  // Hero lines on load
+  window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      document.querySelectorAll('.hero-ln').forEach(el => el.classList.add('on'));
+      setTimeout(() => document.querySelector('.hero-cta')?.classList.add('on'), 320);
+      setTimeout(() => document.querySelectorAll('.ic.r').forEach(el => el.classList.add('on')), 80);
+    }, 120);
   });
-}, { threshold: 0.06 });
-document.querySelectorAll('.r').forEach(el => io.observe(el));
 
-// Video click handler
-// Add your YouTube/Vimeo URLs here in order, matching each video card top to bottom
-const videoUrls = [
-  '', // 01 main campaign film
-  '', // 01 social 30s
-  '', // 01 social 15s
-  '', // 02 concert recap
-  '', // 02 backstage reel
-  '', // 02 highlight 01
-  '', // 02 highlight 02
-  '', // 02 highlight 03
-  '', // 04 activation reel
-  '', // 04 quiz series
-  '', // 04 poll campaign
-  '', // 04 carousel series
-  '', // 04 brand moment
-  '', // 05 reel 01
-  '', // 05 reel 02
-  '', // 05 reel 03
-  '', // 05 reel 04
-  '', // 05 reel 05
-];
+  // Scroll reveals
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.07, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.r:not(.ic)').forEach(el => obs.observe(el));
 
-document.querySelectorAll('.cell').forEach((cell, i) => {
-  const hasPlay = cell.querySelector('.play');
-  if (!hasPlay) return;
-  cell.addEventListener('click', () => {
-    if (videoUrls[i]) window.open(videoUrls[i], '_blank');
+  // Click-to-play: video cards
+  document.querySelectorAll('.vc[data-src]').forEach(vc => {
+    vc.addEventListener('click', function () {
+      const thumb = this.querySelector('.vc-thumb');
+      if (!thumb || this.querySelector('iframe')) return;
+      const iframe = document.createElement('iframe');
+      iframe.src = this.dataset.src;
+      iframe.allow = 'autoplay; fullscreen';
+      iframe.allowFullscreen = true;
+      this.appendChild(iframe);
+      thumb.style.transition = 'opacity .4s ease';
+      thumb.style.opacity = '0';
+      setTimeout(() => thumb.remove(), 420);
+    });
   });
-});
+
+  // Click-to-play: full-width hero blocks
+  document.querySelectorAll('.fw-video[data-src]').forEach(fw => {
+    fw.addEventListener('click', function () {
+      const thumb = this.querySelector('.fw-thumb');
+      if (!thumb || this.querySelector('iframe')) return;
+      const iframe = document.createElement('iframe');
+      iframe.src = this.dataset.src;
+      iframe.allow = 'autoplay; fullscreen';
+      iframe.allowFullscreen = true;
+      this.appendChild(iframe);
+      thumb.style.transition = 'opacity .4s ease';
+      thumb.style.opacity = '0';
+      setTimeout(() => thumb.remove(), 420);
+    });
+  });
 </script>
 </body>
 </html>
